@@ -1,9 +1,12 @@
-import React from 'react'
+import { Outlet } from "react-router-dom";
 
-const Layout = ({children}) => {
-  return (
-    <div>{children}</div>
-  )
-}
+const Layout = () => {
+	return (
+		<div>
+			{/* Add navbar and sidebar here */}
+			<Outlet />
+		</div>
+	);
+};
 
-export default Layout
+export default Layout;

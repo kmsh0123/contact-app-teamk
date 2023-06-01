@@ -1,17 +1,36 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { RouterProvider, createBrowserRouter } from "react-router-dom";
+import Layout from "./container/Layout";
+import { Suspense, lazy } from "react";
+import PageLoading from "./pages/Loading";
+import SidebarProvider from "./context/SidebarConext";
+import ThemeProvider from "./context/ThemeContext";
+import AppTheme from "./container/AppTheme";
+const Home = lazy(() => import("./pages/Home"));
 
-function App({children}) {
+const router = createBrowserRouter([
+	{
+		path: "/",
+		element: <Layout />,
+		children: [{ path: "/", element: <Home /> }],
+	},
+	// {
+	// 	path: "/login",
+	// 	element: add login page
+	// },
+]);
 
-  return (
-    <>
-      <div className="text-center">
-        Hi
-      </div>
-    </>
-  )
+function App() {
+	return (
+		<SidebarProvider>
+			<ThemeProvider>
+				<AppTheme>
+					<Suspense fallback={<PageLoading />}>
+						<RouterProvider router={router} />
+					</Suspense>
+				</AppTheme>
+			</ThemeProvider>
+		</SidebarProvider>
+	);
 }
 
-export default App
+export default App;
