@@ -6,6 +6,8 @@ import SidebarProvider from "./context/SidebarConext";
 import ThemeProvider from "./context/ThemeContext";
 import AppTheme from "./container/AppTheme";
 import Paths from "./routes/Paths";
+import "./index.css"
+
 const Home = lazy(() => import("./pages/Home"));
 
 const router = createBrowserRouter([
