@@ -8,3 +8,14 @@
 *{
     font-family: 'Wix Madefor Display', sans-serif;
   }
+  
+  input:checked ~ .dot {
+    transform: translateX(100%);
+    background-color: #000;
+}
+.active{
+    background-color: rgb(212 212 216);
+    border-start-end-radius: 9999px;
+	  border-end-end-radius: 9999px;
+    color :rgb(25 103 210)
+}
