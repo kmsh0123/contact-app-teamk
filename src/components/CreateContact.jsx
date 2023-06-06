@@ -1,4 +1,3 @@
-import React from "react";
 import { Loader, TextInput } from "@mantine/core";
 import { useCreateContactMutation } from "../redux/Api/contactListApi";
 import { useNavigate } from "react-router-dom";
