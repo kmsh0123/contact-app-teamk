@@ -1,12 +1,11 @@
 import React from "react";
 import { useDispatch } from "react-redux";
 import { useGetLogOutMutation } from "../redux/Api/contactApi";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
-import { removeUser } from "../redux/services/authSlice";
+import { removeUser } from "../redux/service/authSlice";
 
 const Navbar = () => {
-
   const user = JSON.parse(Cookies.get("user"));
   const token = Cookies.get("token");
 
@@ -27,7 +26,9 @@ const Navbar = () => {
 
   return (
     <div className=" flex justify-around p-5 shadow-lg items-center">
-      <h1 className=" font-semibold text-orange-500">Team K</h1>
+      <Link to={"/"}>
+        <h1 className="cursor-pointer font-semibold text-orange-500">Team K</h1>
+      </Link>
       <div className="flex gap-5 items-center">
         <div className="flex flex-col">
           <h1 className="text-blue-700">{user?.name}</h1>
@@ -35,7 +36,7 @@ const Navbar = () => {
         </div>
         <button
           onClick={logOutHandler}
-          className=" bg-red-500 text-white py-2 px-3 rounded-xl shadow-lg"
+          className=" bg-orange-500 text-white py-2 px-3 rounded-3xl shadow-lg"
         >
           LogOut
         </button>
