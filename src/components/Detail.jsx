@@ -3,6 +3,10 @@ import React from "react";
 import { Link, useParams } from "react-router-dom";
 import { useGetSingleContactQuery } from "../redux/Api/contactListApi";
 import { Loader } from "@mantine/core";
+import { BsPersonCircle } from "react-icons/bs";
+import { TfiEmail } from "react-icons/tfi";
+import { BsTelephone } from "react-icons/bs";
+import { FaRegAddressCard } from "react-icons/fa";
 
 const Detail = () => {
   const token = Cookies.get("token");
@@ -20,18 +24,37 @@ const Detail = () => {
   }
 
   return (
-    <div className="flex justify-center items-center h-screen">
-      <div className="flex flex-col gap-5 shadow-xl p-5 border rounded-xl w-72 h-70 items-center text-center">
-        <img src="" alt="" className="" />
-        <h1 className="">{data?.contact?.name}</h1>
-        <h1 className="">{data?.contact?.email}</h1>
-        <h1 className="">{data?.contact?.phone}</h1>
-        <h1 className="">{data?.contact?.address}</h1>
-        <Link to={"/"}>
-          <button className="bg-teal-600 text-blue-800 py-2 px-5 rounded-2xl">
-            Home
-          </button>
-        </Link>
+    <div className="flex justify-center items-center h-screen bg-gradient-to-r from-[#e5e5f6] to-blue-500">
+      <div className=" xl:w-96 md:w-96 w-80 flex flex-col gap-8 bg-[#ffffff19] backdrop-blur-sm border-t-[rgba(255,255,255,0.5)] border-l-[rgba(255,255,255,0.5)] border-solid border-t border-l rounded-lg p-[2.9rem]">
+        <h1 className="text-center text-2xl font-semibold">Contact Detail</h1>
+        <div className=" flex gap-5 items-center ">
+          <BsPersonCircle className="text-2xl text-blue-900" />
+          <h1 className="text-xl">{data?.contact?.name}</h1>
+        </div>
+        <div className=" flex gap-5 items-center">
+          <TfiEmail className="text-2xl text-blue-900" />
+          <h1 className="text-xl">{data?.contact?.email}</h1>
+        </div>
+        <div className=" flex gap-5 items-center">
+          <BsTelephone className="text-2xl text-blue-900" />
+          <h1 className="text-xl">{data?.contact?.phone}</h1>
+        </div>
+        <div className=" flex gap-5 items-center">
+          <FaRegAddressCard className="text-2xl text-blue-900" />
+          <h1 className="text-xl">{data?.contact?.address}</h1>
+        </div>
+        <div className="flex justify-around items-center">
+          <Link to={"/"}>
+            <button className="bg-blue-600 text-white hover:bg-gray-500 px-4 py-1 rounded-lg w-24 md:w-32 lg:w-32 h-12 mx-auto block">
+              Back
+            </button>
+          </Link>
+          <Link to={`/edit/${id}`}>
+            <button className="bg-gray-500 text-white hover:bg-blue-600 px-4 py-1 rounded-lg w-24 md:w-32 lg:w-32 h-12 mx-auto block">
+              Edit
+            </button>
+          </Link>
+        </div>
       </div>
     </div>
   );
