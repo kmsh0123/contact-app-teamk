@@ -38,85 +38,73 @@ const Register = () => {
 
   return (
     <>
-      <div className="flex justify-center items-center h-screen bg-amber-200">
-        <div className=" bg-gray-700 w-[80%] p-5 rounded-xl flex justify-around items-center">
-          <form
-            className=" w-96 p-5 flex flex-col rounded-xl gap-5 shadow-lg bg-purple-700"
-            onSubmit={form.onSubmit(async (values) => {
-              try {
-                const { data } = await getRegister(values);
-                console.log(data);
-                console.log(values);
-                if (data?.success) {
-                  nav("/login");
-                }
-              } catch (error) {
-                console.log(error);
-              }
-            })}
-          >
-            <h1 className=" text-center mb-3 text-xl font-semibold ">
-              Hello Friend!
-            </h1>
-            <div className="flex flex-col gap-5">
-              <TextInput
-                mt="sm"
-                label="Email"
-                icon={<MdOutlineEmail className="text-2xl"/>}
-                placeholder="Email"
-                {...form.getInputProps("email")}
-              />
-              <TextInput
-                label="Name"
-                icon={<RiUser6Line className="text-2xl"/>}
-                placeholder="Name"
-                {...form.getInputProps("name")}
-              />
-              <PasswordInput
-                label="Password"
-                icon={<MdOutlineKey className="text-2xl"/>}
-
-                placeholder="Password"
-                {...form.getInputProps("password")}
-              />
-              <PasswordInput
-                mt="sm"
-                label="Confirm password"
-                icon={<MdOutlineKey className="text-2xl"/>}
-
-                placeholder="Confirm password"
-                {...form.getInputProps("password_confirmation")}
-              />
-              <div className=" flex justify-around items-center">
-                <h1 className="">Already have an acc?</h1>
-                <Link to={"/login"}>
-                  <p className=" cursor-pointer font-semibold">Login</p>
-                </Link>
-              </div>
-              <button
-                disabled={isLoading && true}
-                type="submit"
-                className=" bg-teal-400 text-black py-2 rounded-2xl"
-              >
-                {isLoading ? (
-                  <Loader
-                    className=" w-10 mx-auto items-center "
-                    color="grape"
-                    variant="dots"
-                  />
-                ) : (
-                  "Register"
-                )}
-              </button>
-            </div>
-          </form>
-
-          <div className="border ">
-            <h1 className="text-white text-3xl">Pic</h1>
-            <img src="../images/registration-event.png" alt="" className="" />
-          </div>
+      <div className=" flex justify-center items-center h-screen">
+      <form
+        onSubmit={form.onSubmit(async (values) => {
+          try {
+            const { data } = await getRegister(values);
+            console.log(data);
+            if (data?.success === true) {
+              nav("/login");
+            }
+          } catch (error) {
+            console.log(error);
+          }
+        })}
+        className=" xl:w-96 md:w-96 w-80 flex flex-col gap-8 bg-[#ffffff19] backdrop-blur-sm border-t-[rgba(255,255,255,0.5)] border-l-[rgba(255,255,255,0.5)] border-solid border-t border-l rounded glassmorphic rounded-lg p-7"
+      >
+         <h2
+          className=" flex flex-col text-center justify-center text-gray-500 font-medium text-[32px]
+      "
+        >
+         Hello there! <br /> 
+         <span className=" mt-[-6px] text-[13px]">Please sign in here to proceed.</span>
+        </h2>
+        <TextInput
+          {...form.getInputProps("name")}
+          placeholder="Enter your name"
+          variant="filled"
+        />
+        <TextInput
+          {...form.getInputProps("email")}
+          placeholder="Enter your email"
+          variant="filled"
+        />
+        <PasswordInput
+          {...form.getInputProps("password")}
+          placeholder=" Enter your Password"
+          variant="filled"
+        />
+        <PasswordInput
+          {...form.getInputProps("password_confirmation")}
+          placeholder="Confirm your Password ..."
+          variant="filled"
+        />
+        <div className=" flex gap-1">
+          <p className=" select-none text-gray-500">Already have an account?</p>
+          <Link to={"/login"}>
+            <p className=" select-none text-blue-500 cursor-pointer">
+              Login here.
+            </p>
+          </Link>
         </div>
-      </div>
+        <button
+          disabled={isLoading && true}
+          type="submit"
+          className=" bg-blue-600 text-white hover:bg-gray-400 px-4 py-1 rounded w-40 h-9 mx-auto block"
+        >
+          {isLoading ? (
+            <Loader
+              className=" mx-auto my-auto block"
+              color="white"
+              size="sm"
+            />
+          ) : (
+            "Register"
+          )}
+        </button>
+      </form>
+    </div>
     </>
   );
 };

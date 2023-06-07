@@ -10,53 +10,21 @@ import {BiArchiveIn} from "react-icons/bi"
 import { removeUser } from "../redux/service/authSlice";
 import { toggleNavbar } from "../redux/service/navbarSlice";
 import { setSearched } from "../redux/service/contactSlice";
+import UserMenu from "./UserMenu";
 
 const Navbar = () => {
   const token = Cookies.get("token");
   const isOpen = useSelector(state => state.navbar.isOpen);
   const dispatch = useDispatch();
   const [click,setClick] = useState(true);
-  const user = JSON.parse(Cookies.get("user"));
-  const { data, isLoading } = useGetContactQuery(token);
 
-  const contacts = useSelector((state) => state.contactSlice.contacts);
   const searched = useSelector((state) => state.contactSlice.searched);
 
 
-  const [getLogOut] = useGetLogOutMutation();
-
-  const nav = useNavigate();
-
-  const logOutHandler = async () => {
-    const { data } = await getLogOut(token);
-    dispatch(removeUser());
-    if (data?.success) {
-      nav("/login");
-    }
-    // console.log(data);
-  };
-
   return (
-    // <div className=" flex justify-around p-5 shadow-lg items-center">
-    //   <Link to={"/"}>
-    //     <h1 className="cursor-pointer font-semibold text-orange-500">Team K</h1>
-    //   </Link>
-    //   <div className="flex gap-5 items-center">
-    //     <div className="flex flex-col">
-    //       <h1 className="text-blue-700">{user?.name}</h1>
-    //       <h1 className="text-yellow-500">{user?.email}</h1>
-    //     </div>
-    //     <button
-    //       onClick={logOutHandler}
-    //       className=" bg-orange-500 text-white py-2 px-3 rounded-3xl shadow-lg"
-    //     >
-    //       LogOut
-    //     </button>
-    //   </div>
-    // </div>
     <>
     {/* NAVBAR */}
-      <nav className='bg-white p-2 flex items-center justify-between space-x-5 cursor-pointer w-screen'>
+      <nav className='bg-white shadow p-2 md:p-5 flex items-center justify-between space-x-5 cursor-pointer w-screen'>
            <div className="flex items-center space-x-3">
             <div onClick={() => dispatch(toggleNavbar())} className="">
               {
@@ -70,7 +38,7 @@ const Navbar = () => {
            <img className='w-[40px] hidden md:block' src="https://www.gstatic.com/images/branding/product/2x/contacts_2022_48dp.png" alt="" />
            <h1 className='text-[#5f6368] text-2xl'>Friends</h1>
            <div className="lg:space-x-24">
-           <HiSearch onClick={() => setClick(!click)} className='absolute lg:top-[13px] md:top-[9px] top-[3px] lg:ms-[7rem] md:ms-3 hover:bg-[#3c404314] cursor-pointer w-12 h-12 lg:w-10 lg:h-10 p-3 hover:rounded-full duration-100'/><input type="text" placeholder='Search Name' value={searched} onChange={(e) => dispatch(setSearched(e.target.value))} className={`lg:w-[600px] md:w-[400px] w-[12rem] p-3 bg-[#3c404314] outline-none rounded-lg md:px-16 pe-1 cursor-pointer absolute top-[5px] left-0 md:static bg-white ms-2 lg:ms-auto shadow shadow-gray-950 ${click ? "hidden" : "block"} md:bg-transparent md:block`}/> 
+           <HiSearch onClick={() => setClick(!click)} className='absolute lg:top-[24px] md:top-[9px] top-[3px] lg:ms-[7rem] md:ms-3 hover:bg-[#3c404314] cursor-pointer w-12 h-12 lg:w-10 lg:h-10 p-3 hover:rounded-full duration-100'/><input type="text" placeholder='Search Name' value={searched} onChange={(e) => dispatch(setSearched(e.target.value))} className={`lg:w-[600px] md:w-[400px] w-[12rem] p-3 bg-[#3c404314] outline-none rounded-lg md:px-16 pe-1 cursor-pointer absolute top-[5px] left-0 md:static bg-white ms-2 lg:ms-auto shadow shadow-gray-950 ${click ? "hidden" : "block"} md:bg-transparent md:block`}/> 
            <AiOutlineClose onClick={() => setClick(!click)} className={`absolute top-[20px] left-[170px] md:static ${click ? "hidden" : "block"} md:hidden`}/>
            </div>
            </div>
@@ -82,7 +50,8 @@ const Navbar = () => {
                         <div className="dot absolute left-1 top-1 bg-white w-6 h-6 rounded-full transition"></div>
                       </div>
                     </label>
-                <img src="https://img.freepik.com/free-icon/user_318-159711.jpg" className='w-10 h-10' alt="" />
+                {/* <img src="https://img.freepik.com/free-icon/user_318-159711.jpg" className='w-10 h-10' alt="" /> */}
+                <UserMenu className = "w-10 h-10"/>
               </div>
         </nav>
     {/* NAVBAR */}

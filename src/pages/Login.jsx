@@ -35,71 +35,73 @@ const Login = () => {
   }
 
   return (
-    <>
-      <div className=" flex justify-center items-center h-screen bg-amber-200">
-        <div className="bg-gray-500 w-[80%] p-8 rounded-xl flex justify-around items-center">
+    <div className="bg-gradient-to-r from-[#e5e5f6] to-blue-500">
+      <div className=" flex justify-center items-center h-screen">
+        <div className="flex shadow-2xl items-center">
+          <img src="https://cdni.iconscout.com/illustration/premium/thumb/online-registration-7964197-6381807.png?f=webp" alt="" />
           <form
-            onSubmit={form.onSubmit(async (values) => {
-              try {
-                const { data } = await getLogin(values);
-                dispatch(addUser({ user: data?.user, token: data?.token }));
-                console.log(data);
-                console.log(values);
-                if (data?.success === true) {
-                  nav("/");
-                }
-              } catch (error) {
-                console.log(error);
-              }
-            })}
-            className=" w-96 border p-5 rounded-xl bg-orange-400 flex flex-col gap-5 shadow-lg"
-          >
-            <h1 className=" text-center mb-3 text-blue-600 text-xl font-semibold ">
-              Login
-            </h1>
-            <div className="flex flex-col gap-5">
-                <TextInput
-                  mt="sm"
-                  label="Email"
-                  icon={<MdOutlineEmail className="text-2xl " />}
-                  placeholder="Email"
-                  {...form.getInputProps("email")}
-                />
-              <PasswordInput
-                label="Password"
-                icon={<MdOutlineKey className="text-2xl"/>}
-                placeholder="Password"
-                {...form.getInputProps("password")}
-              />
-              <div className=" flex justify-around">
-                <h1 className="">Don't have an account?</h1>
-                <Link to={"/register"}>
-                  <h1 className=" font-semibold cursor-pointer">Register</h1>
-                </Link>
-              </div>
-              <button
-                disabled={isLoading && true}
-                type="submit"
-                className=" bg-green-500 text-black  rounded-2xl"
-              >
-                {isLoading ? (
-                  <Loader
-                    className=" w-10 mx-auto items-center "
-                    color="grape"
-                    variant="dots"
-                  />
-                ) : (
-                  <h1 className="py-2">LogIn</h1>
-                )}
-              </button>
-            </div>
-          </form>
-          <div className="border">
-            <h1 className="text-2xl text-white">Pic</h1>
-          </div>
+        onSubmit={form.onSubmit(async (values) => {
+          try {
+            const { data } = await getLogin(values);
+            console.log(data);
+            dispatch(addUser({ user: data?.user, token: data?.token }));
+            if (data?.success === true) {
+              nav("/");
+            }
+          } catch (error) {
+            console.log(error);
+          }
+        })}
+        className=" xl:w-96 md:w-96 w-80 flex flex-col gap-8 bg-[#ffffff19] backdrop-blur-sm border-t-[rgba(255,255,255,0.5)] border-l-[rgba(255,255,255,0.5)] border-solid border-t border-l rounded-lg p-[3.9rem]"
+      >
+        <h2
+          className=" flex flex-col text-center justify-center text-gray-500 font-medium text-[28px]
+      "
+        >
+         Welcome back! <br /> 
+         <span className=" mt-[-6px] text-[15px]">Please login here to continue.</span>
+        </h2>
+        <TextInput
+          {...form.getInputProps("email")}
+          placeholder="Enter your email"
+          variant="filled"
+        />
+        <PasswordInput
+          {...form.getInputProps("password")}
+          placeholder=" Enter your Password"
+          variant="filled"
+        />
+        <div className=" flex gap-1">
+          <p className=" select-none text-gray-500">New to our service?</p>
+          <Link to={"/register"}>
+            <p className=" select-none text-blue-500 cursor-pointer">
+              Register here.
+            </p>
+          </Link>
         </div>
-      </div>
-    </>
+
+        {/* login */}
+        <button
+          disabled={isLoading && true}
+          type="submit"
+          className=" bg-blue-600 text-white hover:bg-gray-400 px-4 py-1 rounded w-40 h-9 mx-auto block"
+        >
+          {isLoading ? (
+            <Loader
+              className=" mx-auto my-auto block"
+              color="white"
+              size="sm"
+            />
+          ) : (
+            "Sign in"
+          )}
+        </button>
+      </form>
+        </div>
+      {/* form start here */}
+      
+    </div>
+    </div>
   );
 };
 
