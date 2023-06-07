@@ -16,6 +16,5 @@ export const LoginSchema = z.object({
 			required_error: "Password is required!",
 		})
 		.trim()
-		.min(6, "Password must have at least 6 letters!")
 		.refine(checkSpaces, "Password can't contain spaces!"),
 });
