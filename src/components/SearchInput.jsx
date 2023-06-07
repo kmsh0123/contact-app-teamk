@@ -1,5 +1,3 @@
-import { useState } from "react";
-import { AiOutlineClose } from "react-icons/ai";
 import { GoSearch } from "react-icons/go";
 import { IoClose } from "react-icons/io5";
 import { useDispatch, useSelector } from "react-redux";

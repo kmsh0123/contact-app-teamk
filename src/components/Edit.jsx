@@ -1,6 +1,6 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import Cookies from "js-cookie";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { ImSpinner2 } from "react-icons/im";
 import { Link, useNavigate, useParams } from "react-router-dom";
@@ -15,7 +15,7 @@ import { BsTelephone } from "react-icons/bs";
 import { FaRegAddressCard } from "react-icons/fa";
 
 const Edit = () => {
-	const [isLoading, setIsLoading] = useState(false);
+	const [isLoading] = useState(false);
 
 	const token = Cookies.get("token");
 	const { id } = useParams();
@@ -52,7 +52,7 @@ const Edit = () => {
 			setValue("email", data?.contact?.email);
 			setValue("address", data?.contact?.address);
 		}
-	}, [data]);
+	}, [data, setValue]);
 
 	// const {register,handleSubmit} = useForm();
 	const nav = useNavigate();

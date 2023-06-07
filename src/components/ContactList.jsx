@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { Loader, Table } from "@mantine/core";
 import {
 	useDeleteContactMutation,
@@ -6,7 +6,6 @@ import {
 } from "../redux/Api/contactListApi";
 import Cookies from "js-cookie";
 import Swal from "sweetalert2";
-import { FiUserPlus } from "react-icons/fi";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { addContacts } from "../redux/service/contactSlice";
@@ -24,7 +23,7 @@ const ContactList = () => {
 
 	useEffect(() => {
 		dispatch(addContacts(data?.contacts?.data));
-	}, [data]);
+	}, [data, dispatch]);
 
 	// console.log(data);
 

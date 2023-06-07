@@ -40,7 +40,7 @@ const Register = () => {
 								console.log(error);
 							}
 						})}
-						className=" xl:w-96 md:w-96 w-80 flex flex-col gap-8 bg-[#ffffff19] backdrop-blur-sm border-t-[rgba(255,255,255,0.5)] border-l-[rgba(255,255,255,0.5)] border-solid border-t border-l rounded glassmorphic rounded-lg p-7"
+						className=" xl:w-96 md:w-96 w-80 flex flex-col gap-8 bg-[#ffffff19] backdrop-blur-sm border-t-[rgba(255,255,255,0.5)] border-l-[rgba(255,255,255,0.5)] border-solid border-t border-l glassmorphic rounded-lg p-7"
 					>
 						<h2
 							className=" flex flex-col text-center justify-center text-gray-500 font-medium text-[32px]

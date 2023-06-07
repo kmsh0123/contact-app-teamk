@@ -1,15 +1,13 @@
-import Cookies from 'js-cookie'
-import React from 'react'
-import { Navigate } from 'react-router-dom'
+import Cookies from "js-cookie";
+import { Navigate } from "react-router-dom";
 
-const Routeguard = ({children}) => {
+const Routeguard = ({ children }) => {
+	const token = Cookies.get("token");
+	if (token) {
+		return children;
+	} else {
+		return <Navigate to={"/login"} />;
+	}
+};
 
-    const token = Cookies.get("token")
-    if(token) {
-        return children
-    } else {
-        return <Navigate to={'/login'}/>
-    }
-}
-
-export default Routeguard
+export default Routeguard;

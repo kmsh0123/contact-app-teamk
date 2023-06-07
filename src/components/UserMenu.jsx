@@ -1,20 +1,16 @@
-import React from "react";
-import { Menu, Button, Loader } from "@mantine/core";
-import { useDispatch, useSelector } from "react-redux";
-import { Link, useNavigate } from "react-router-dom";
+import { Loader, Menu, ScrollArea } from "@mantine/core";
 import Cookies from "js-cookie";
 import { BsBoxArrowInRight } from "react-icons/bs";
-import { ScrollArea } from "@mantine/core";
-import { useGetContactQuery } from "../redux/Api/contactListApi";
-import { removeUser } from "../redux/service/authSlice";
-import { useGetLogOutMutation } from "../redux/Api/contactApi";
 import { FaUser } from "react-icons/fa";
+import { useDispatch } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
+import { useGetLogOutMutation } from "../redux/Api/contactApi";
+import { removeUser } from "../redux/service/authSlice";
 
 const UserMenu = () => {
 	const token = Cookies.get("token");
 
 	const user = JSON.parse(Cookies.get("user"));
-	const { data } = useGetContactQuery(token);
 
 	const [getLogOut, { isLoading }] = useGetLogOutMutation();
 

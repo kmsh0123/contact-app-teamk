@@ -1,5 +1,3 @@
-import Cookies from "js-cookie";
-import React from "react";
 import { AiOutlineClose, AiOutlineMenu } from "react-icons/ai";
 import { BiArchiveIn } from "react-icons/bi";
 import { BsFillPersonFill } from "react-icons/bs";
@@ -10,7 +8,6 @@ import SearchInput from "./SearchInput";
 import UserMenu from "./UserMenu";
 
 const Navbar = () => {
-	const token = Cookies.get("token");
 	const isOpen = useSelector((state) => state.navbar.isOpen);
 	const dispatch = useDispatch();
 
@@ -53,7 +50,7 @@ const Navbar = () => {
 			>
 				<Link to={"/create"}>
 					<div
-						className="flex hidden lg:flex lg:flex-row items-center space-x-2 p-4 ms-0 rounded-3xl hover:shadow-custom"
+						className="flex lg:flex-row items-center space-x-2 p-4 ms-0 rounded-3xl hover:shadow-custom"
 						style={{
 							boxShadow:
 								"0 10px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19)",
