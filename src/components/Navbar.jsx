@@ -17,7 +17,7 @@ const Navbar = () => {
 	return (
 		<>
 			{/* NAVBAR */}
-			<nav className="bg-white shadow p-2 md:p-5 flex items-center justify-between space-x-5 cursor-pointer w-screen">
+			<nav className="bg-white shadow p-2 md:p-5 flex items-center justify-between space-x-5 w-screen">
 				<div className="flex items-center space-x-3">
 					<div onClick={() => dispatch(toggleNavbar())} className="">
 						{isOpen ? (
