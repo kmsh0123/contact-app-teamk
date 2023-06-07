@@ -45,12 +45,12 @@ const Detail = () => {
         </div>
         <div className="flex justify-around items-center">
           <Link to={"/"}>
-            <button className="bg-blue-600 text-white hover:bg-gray-500 px-4 py-1 rounded-lg w-24 md:w-32 lg:w-32 h-12 mx-auto block">
+            <button className="bg-blue-600 transition duration-300 text-white hover:bg-gray-500 px-4 py-1 rounded-lg w-24 md:w-32 lg:w-32 h-12 mx-auto block">
               Back
             </button>
           </Link>
           <Link to={`/edit/${id}`}>
-            <button className="bg-gray-500 text-white hover:bg-blue-600 px-4 py-1 rounded-lg w-24 md:w-32 lg:w-32 h-12 mx-auto block">
+            <button className="bg-gray-500 transition duration-300 text-white hover:bg-blue-600 px-4 py-1 rounded-lg w-24 md:w-32 lg:w-32 h-12 mx-auto block">
               Edit
             </button>
           </Link>
