@@ -30,18 +30,21 @@ export const contactListApi = createApi({
             invalidatesTags: ['contactList'],
         }),
         getSingleContact: builder.query({
-            query: ({ id, token }) => ({
-                url: `/contact/${id}`,
-                headers: { authorization: `Bearer ${token}` }
+            query:({token,id,contact}) => ({
+                url:`/contact/${id}`,
+                body : contact,
+                headers:{authorization:`Bearer ${token}`}
             }),
-            providesTags: ['contactList']
+            providesTags:['contactList']
         }),
         editContact: builder.mutation({
-            query: ({ id, token }) => ({
-                url: `/contact/${id}`,
-                headers: { authorization: `Bearer ${token}` },
+            query:({id,contact,token}) => ({
+                url : `/contact/${id}`,
+                method : "PATCH",
+                body : contact,
+                headers : {authorization : `Bearer ${token}`}
             }),
-            invalidatesTags: ['contactList'],
+            invalidatesTags:["contactList"]
         })
     })
 })

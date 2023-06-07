@@ -7,8 +7,7 @@ export const CreateContactSchema = z.object({
 			invalid_type_error: "Name must be string!",
 			required_error: "Name is required!",
 		})
-		.trim()
-		.min(3, "Name must have at least 6 letters!"),
+		.trim(),
 	email: z
 		.string({
 			invalid_type_error: "Email must be string!",

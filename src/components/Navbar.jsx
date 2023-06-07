@@ -1,64 +1,23 @@
-import React, { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import {
-	useGetContactQuery,
-	useGetLogOutMutation,
-} from "../redux/Api/contactApi";
-import { Link, NavLink, useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
-import { AiOutlineMenu, AiOutlineClose } from "react-icons/ai";
-import { HiSearch } from "react-icons/hi";
-import { BsFillPersonFill, BsClock } from "react-icons/bs";
+import React from "react";
+import { AiOutlineClose, AiOutlineMenu } from "react-icons/ai";
 import { BiArchiveIn } from "react-icons/bi";
-import { removeUser } from "../redux/service/authSlice";
+import { BsFillPersonFill } from "react-icons/bs";
+import { useDispatch, useSelector } from "react-redux";
+import { Link, NavLink } from "react-router-dom";
 import { toggleNavbar } from "../redux/service/navbarSlice";
-import { setSearched } from "../redux/service/contactSlice";
 import SearchInput from "./SearchInput";
+import UserMenu from "./UserMenu";
 
 const Navbar = () => {
 	const token = Cookies.get("token");
 	const isOpen = useSelector((state) => state.navbar.isOpen);
 	const dispatch = useDispatch();
-	const user = JSON.parse(Cookies.get("user"));
-	const { data, isLoading } = useGetContactQuery(token);
-
-	const contacts = useSelector((state) => state.contactSlice.contacts);
-	const searched = useSelector((state) => state.contactSlice.searched);
-
-	const [getLogOut] = useGetLogOutMutation();
-
-	const nav = useNavigate();
-
-	const logOutHandler = async () => {
-		const { data } = await getLogOut(token);
-		dispatch(removeUser());
-		if (data?.success) {
-			nav("/login");
-		}
-		// console.log(data);
-	};
 
 	return (
-		// <div className=" flex justify-around p-5 shadow-lg items-center">
-		//   <Link to={"/"}>
-		//     <h1 className="cursor-pointer font-semibold text-orange-500">Team K</h1>
-		//   </Link>
-		//   <div className="flex gap-5 items-center">
-		//     <div className="flex flex-col">
-		//       <h1 className="text-blue-700">{user?.name}</h1>
-		//       <h1 className="text-yellow-500">{user?.email}</h1>
-		//     </div>
-		//     <button
-		//       onClick={logOutHandler}
-		//       className=" bg-orange-500 text-white py-2 px-3 rounded-3xl shadow-lg"
-		//     >
-		//       LogOut
-		//     </button>
-		//   </div>
-		// </div>
 		<>
 			{/* NAVBAR */}
-			<nav className="bg-white p-2 flex items-center justify-between space-x-5 cursor-pointer w-screen">
+			<nav className="bg-white shadow p-2 md:p-5 flex items-center justify-between space-x-5 cursor-pointer w-screen">
 				<div className="flex items-center space-x-3">
 					<div onClick={() => dispatch(toggleNavbar())} className="">
 						{isOpen ? (
@@ -77,7 +36,6 @@ const Navbar = () => {
 						alt=""
 					/>
 					<h1 className="text-[#5f6368] text-2xl">Friends</h1>
-
 					<SearchInput />
 				</div>
 				<div className="flex items-center lg:space-x-5 space-x-2">
@@ -95,11 +53,8 @@ const Navbar = () => {
 							<div className="dot absolute left-1 top-1 bg-white w-6 h-6 rounded-full transition"></div>
 						</div>
 					</label>
-					<img
-						src="https://img.freepik.com/free-icon/user_318-159711.jpg"
-						className="w-10 h-10"
-						alt=""
-					/>
+					{/* <img src="https://img.freepik.com/free-icon/user_318-159711.jpg" className='w-10 h-10' alt="" /> */}
+					<UserMenu className="w-10 h-10" />
 				</div>
 			</nav>
 			{/* NAVBAR */}

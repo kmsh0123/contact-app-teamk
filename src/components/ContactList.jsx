@@ -29,22 +29,45 @@ const ContactList = () => {
   // console.log(data);
 
   const deleteHandler = (id) => {
-    Swal.fire({
-      title: "Are you sure?",
-      text: "You won't be able to revert this contact!",
-      icon: "warning",
+    const swalWithBootstrapButtons = Swal.mixin({
+      customClass: {
+        confirmButton: 'bg-green-700 p-2 px-5 rounded-lg mx-2 text-white',
+        cancelButton: 'bg-red-700 p-2 px-5 rounded-lg text-white'
+      },
+      buttonsStyling: false
+    })
+    
+    swalWithBootstrapButtons.fire({
+      title: 'Are you sure?',
+      text: "You won't be able to revert this!",
+      icon: 'warning',
       showCancelButton: true,
-      confirmButtonColor: "#3085d6",
-      cancelButtonColor: "#d33",
-      confirmButtonText: "Yes, delete it!",
-    }).then(async (result) => {
+      confirmButtonText: 'Yes, delete it!',
+      cancelButtonText: 'No, cancel!',
+      reverseButtons: true
+    }).then(async(result) => {
       if (result.isConfirmed) {
-        Swal.fire("Deleted!", "Your contact has been deleted.", "success");
-        const data = await deleteContact({ id, token });
-        // console.log(data);
+        swalWithBootstrapButtons.fire(
+          'Deleted!',
+          'Your contact has been deleted.',
+          'success'
+        )
+
+        const {data} = await deleteContact({id,token});
+        console.log(data);   
+      } else if (
+        /* Read more about handling dismissals below */
+        result.dismiss === Swal.DismissReason.cancel
+      ) {
+        swalWithBootstrapButtons.fire(
+          'Cancelled',
+          'Your contact has not been deleted)',
+          'error'
+        )
       }
-    });
-  };
+    })   
+  }
+
 
   const rows = contacts
     ?.filter((item) => {
@@ -63,11 +86,12 @@ const ContactList = () => {
           <td>
             {contact?.email === null ? "example@gmail.com" : contact?.email}
           </td>
-          <td className="hidden md:table-cell">{contact?.phone === null ? "exampleNum" : contact?.phone}</td>
-          <td className="hidden md:table-cell">
+          <td className="hidden lg:table-cell">{contact?.phone === null ? "exampleNum" : contact?.phone}</td>
+          <td className="hidden lg:table-cell">
             {contact?.address === null ? "exampleAddress" : contact?.address}
           </td>
           <td className="del-icon">
+          <div className="flex justify-end">
             <Menu width={200} shadow="md">
               <Menu.Target>
                 <Button variant="outline">
@@ -76,7 +100,7 @@ const ContactList = () => {
               </Menu.Target>
 
               <Menu.Dropdown>
-                <Menu.Item component="a">
+                <Menu.Item>
                   <p
                     onClick={() => deleteHandler(contact?.id)}
                     className=" text-red-700 cursor-pointer"
@@ -85,19 +109,20 @@ const ContactList = () => {
                   </p>
                 </Menu.Item>
 
-                <Menu.Item component="a" target="_blank">
+                <Menu.Item target="_blank">
                   <Link to={`/detail/${contact?.id}`}>
                     <p className="">Detail</p>
                   </Link>
                 </Menu.Item>
 
-                <Menu.Item component="a" target="_blank">
+                <Menu.Item target="_blank">
                   <Link to={`/edit/${contact?.id}`}>
                     <p className="">Edit</p>
                   </Link>
                 </Menu.Item>
               </Menu.Dropdown>
             </Menu>
+          </div>
           </td>
         </tr>
       );
@@ -131,14 +156,14 @@ const ContactList = () => {
       
        <div className='flex justify-center md:justify-start'>
     <div className={`absolute ${ isOpen ? "lg:left-[305px]" : "lg:left-0"} ${isOpen ? "lg:px-0" : "lg:px-3"} duration-500 transition-all`}>
-      <div className="lg:w-[75vw] w-screen  flex justify-start pt-0 md:pt-10 text-white h-96">
+      <div className="lg:w-[75vw] w-screen  flex justify-start pt-0 md:pt-10 text-white">
         <Table className="">
           <thead className="">
             <tr className="">
               <th className="hidden md:table-cell">Name</th>
               <th className="">Email</th>
-              <th className="hidden md:table-cell">Phone Number</th>
-              <th className="hidden md:table-cell">Address</th>
+              <th className="hidden lg:table-cell">Phone Number</th>
+              <th className="hidden lg:table-cell">Address</th>
             </tr>
           </thead>
           <tbody className="">{rows}</tbody>
