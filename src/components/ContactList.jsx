@@ -29,22 +29,45 @@ const ContactList = () => {
   // console.log(data);
 
   const deleteHandler = (id) => {
-    Swal.fire({
-      title: "Are you sure?",
-      text: "You won't be able to revert this contact!",
-      icon: "warning",
+    const swalWithBootstrapButtons = Swal.mixin({
+      customClass: {
+        confirmButton: 'bg-green-700 p-2 px-5 rounded-lg mx-2 text-white',
+        cancelButton: 'bg-red-700 p-2 px-5 rounded-lg text-white'
+      },
+      buttonsStyling: false
+    })
+    
+    swalWithBootstrapButtons.fire({
+      title: 'Are you sure?',
+      text: "You won't be able to revert this!",
+      icon: 'warning',
       showCancelButton: true,
-      confirmButtonColor: "#3085d6",
-      cancelButtonColor: "#d33",
-      confirmButtonText: "Yes, delete it!",
-    }).then(async (result) => {
+      confirmButtonText: 'Yes, delete it!',
+      cancelButtonText: 'No, cancel!',
+      reverseButtons: true
+    }).then(async(result) => {
       if (result.isConfirmed) {
-        Swal.fire("Deleted!", "Your contact has been deleted.", "success");
-        const data = await deleteContact({ id, token });
-        // console.log(data);
+        swalWithBootstrapButtons.fire(
+          'Deleted!',
+          'Your contact has been deleted.',
+          'success'
+        )
+
+        const {data} = await deleteContact({id,token});
+        console.log(data);   
+      } else if (
+        /* Read more about handling dismissals below */
+        result.dismiss === Swal.DismissReason.cancel
+      ) {
+        swalWithBootstrapButtons.fire(
+          'Cancelled',
+          'Your contact has not been deleted)',
+          'error'
+        )
       }
-    });
-  };
+    })   
+  }
+
 
   const rows = contacts
     ?.filter((item) => {
