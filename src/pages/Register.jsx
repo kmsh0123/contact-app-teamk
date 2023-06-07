@@ -37,8 +37,10 @@ const Register = () => {
   }
 
   return (
-    <>
+    <div className="bg-gradient-to-r from-[#e5e5f6] to-blue-500">
       <div className=" flex justify-center items-center h-screen">
+        <div className="flex items-center shadow-2xl rounded-lg">
+          <img className="" src="https://cdni.iconscout.com/illustration/premium/thumb/points-out-the-registration-form-in-the-mobile-application-3411138-2844271.png?f=webp" alt="" />
       <form
         onSubmit={form.onSubmit(async (values) => {
           try {
@@ -105,7 +107,9 @@ const Register = () => {
         </button>
       </form>
     </div>
-    </>
+    </div>
+
+    </div>
   );
 };
 
