@@ -84,7 +84,7 @@ const Register = () => {
             <button
               disabled={isLoading && true}
               type="submit"
-              className=" bg-blue-600 text-white hover:bg-gray-400 px-4 py-1 rounded w-40 h-9 mx-auto block"
+              className=" bg-blue-600 text-white hover:bg-gray-400 px-4 py-1 transition duration-300 rounded w-40 h-9 mx-auto block"
             >
               {isLoading ? (
                 <Loader
