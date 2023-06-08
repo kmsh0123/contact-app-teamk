@@ -31,9 +31,9 @@ const Register = () => {
 					<form
 						onSubmit={form.onSubmit(async (values) => {
 							try {
-								const { data } = await getRegister(values);
+								const data = await getRegister(values);
 								console.log(data);
-								if (data?.success === true) {
+								if (data?.data?.success === true) {
 									nav("/login");
 								}
 							} catch (error) {
