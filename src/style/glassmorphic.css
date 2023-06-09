@@ -1,0 +1,4 @@
+.glassmorphic {
+    box-shadow: rgba(255, 255, 255, 0.5) -10px -10px 45px inset,
+      rgba(0, 0, 0, 0.1) 10px 10px 20px, rgba(0, 0, 0, 0.06) 5px 5px 10px;
+}
