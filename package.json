@@ -16,6 +16,7 @@
     "@mantine/form": "^6.0.13",
     "@mantine/hooks": "^6.0.13",
     "@reduxjs/toolkit": "^1.9.5",
+    "animate.css": "^4.1.1",
     "js-cookie": "^3.0.5",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
