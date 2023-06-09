@@ -128,6 +128,13 @@ const ContactList = () => {
                       <p className="">Edit</p>
                     </Link>
                   </Menu.Item>
+                  
+                   <Menu.Item target="_blank">
+                    <Link to={`/detail/${contact?.id}`}>
+                      <p className="">detail</p>
+                    </Link>
+                  </Menu.Item>
+                  
                 </Menu.Dropdown>
               </Menu>
             </div>
