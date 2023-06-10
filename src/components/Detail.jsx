@@ -46,9 +46,11 @@ const Detail = () => {
             src="https://www.gstatic.com/images/branding/product/2x/contacts_2022_48dp.png"
             alt=""
           />
-          <h1 className=" text-2xl font-sans font-bold text-blue-400">
-            Friends
-          </h1>
+          <Link to={"/"}>
+            <h1 className=" cursor-pointer hover:text-blue-700 transition duration-300 text-2xl font-sans font-bold text-blue-400">
+              Friends
+            </h1>
+          </Link>
           <div className=" border px-4 py-1 ms-6 rounded-full hidden sm:block">
             <input
               type="text"
