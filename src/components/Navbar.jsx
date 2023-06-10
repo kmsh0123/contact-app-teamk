@@ -8,6 +8,7 @@ import { toggleNavbar } from "../redux/service/navbarSlice";
 import SearchInput from "./SearchInput";
 import UserMenu from "../components/UserMenu"
 import { useState } from "react";
+import { FaHeart } from "react-icons/fa";
 
 const Navbar = () => {
 	const [click,setClick] = useState(true)
@@ -133,6 +134,14 @@ const Navbar = () => {
 						>
 							<BiArchiveIn className="" />
 							<p className="">Other contacts</p>
+						</NavLink>
+
+						<NavLink
+							to="/favourite"
+							className="space-x-5 flex items-center p-3 px-5 text-xl"
+						>
+							<FaHeart className="" />
+							<p className="">Favourite</p>
 						</NavLink>
 					</ul>
 				</div>
