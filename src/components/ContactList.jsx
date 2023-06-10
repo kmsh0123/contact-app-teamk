@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { Loader, Table } from "@mantine/core";
+import { Loader, Skeleton, Table } from "@mantine/core";
 import {
   useDeleteContactMutation,
   useGetContactQuery,
@@ -134,47 +134,112 @@ const ContactList = () => {
 
   if (isLoading) {
     return (
-      <div className="flex justify-center items-center h-screen">
-        <Loader color="grape" variant="dots" />;
+      <div
+        className={`lg:w-[70%] w-screen absolute ${
+          isOpen ? "lg:left-[305px]" : "lg:left-0"
+        } ${isOpen ? "lg:px-0" : "lg:px-3"} duration-500 transition-all ${
+          isOpen ? "lg:w-[70%]" : "lg:w-full"
+        }`}
+      >
+        {/* <Loader color="grape" variant="dots" />; */}
+        <div className="flex justify-start pt-0 md:pt-10 text-white">
+          <Table>
+            <thead>
+            <tr className="">
+                  <th className="hidden md:table-cell">Name</th>
+                  <th className="">Email</th>
+                  <th className="hidden lg:table-cell">Phone Number</th>
+                  <th className="hidden lg:table-cell">Address</th>
+                </tr>
+            </thead>
+            <tbody>
+              <tr className="contact-list">
+                <td className="hidden md:table-cell">
+                  <Skeleton height={25} width={800} mt={6} radius="xl" />
+                </td>
+              </tr>
+              <tr className="contact-list">
+                <td className="hidden md:table-cell">
+                  <Skeleton height={25} width={800} mt={6} radius="xl" />
+                </td>
+              </tr>
+              <tr className="contact-list">
+                <td className="hidden md:table-cell">
+                  <Skeleton height={25} width={800} mt={6} radius="xl" />
+                </td>
+              </tr>
+              <tr className="contact-list">
+                <td className="hidden md:table-cell">
+                  <Skeleton height={25} width={800} mt={6} radius="xl" />
+                </td>
+              </tr>
+              <tr className="contact-list">
+                <td className="hidden md:table-cell">
+                  <Skeleton height={25} width={800} mt={6} radius="xl" />
+                </td>
+              </tr>
+              <tr className="contact-list">
+                <td className="hidden md:table-cell">
+                  <Skeleton height={25} width={800} mt={6} radius="xl" />
+                </td>
+              </tr>
+              <tr className="contact-list">
+                <td className="hidden md:table-cell">
+                  <Skeleton height={25} width={800} mt={6} radius="xl" />
+                </td>
+              </tr>
+              <tr className="contact-list">
+                <td className="hidden md:table-cell">
+                  <Skeleton height={25} width={800} mt={6} radius="xl" />
+                </td>
+              </tr>
+              <tr className="contact-list">
+                <td className="hidden md:table-cell">
+                  <Skeleton height={25} width={800} mt={6} radius="xl" />
+                </td>
+              </tr>
+            </tbody>
+          </Table>
+        </div>
       </div>
     );
   }
 
   return (
-      <div className="flex justify-center md:justify-start">
-        {data?.contacts?.data.length === 0 ? (
-          <div className="flex justify-center flex-col gap-3 items-center h-screen w-[80%] mx-auto">
-            <h1 className="text-3xl font-semibold text-blue-700">
-              Hello Dear!
-            </h1>
-            <iframe src="https://embed.lottiefiles.com/animation/67375"></iframe>
-            <div className="text-gray-500 text-sm text-center">
-              <h1 className="">There are no contacts to display</h1>
-              <p className="">Please check back later for updates</p>
-            </div>
+    <div className="flex justify-center md:justify-start">
+      {data?.contacts?.data.length === 0 ? (
+        <div className="flex justify-center flex-col gap-3 items-center h-screen w-[80%] mx-auto">
+          <h1 className="text-3xl font-semibold text-blue-700">Hello Dear!</h1>
+          <iframe src="https://embed.lottiefiles.com/animation/67375"></iframe>
+          <div className="text-gray-500 text-sm text-center">
+            <h1 className="">There are no contacts to display</h1>
+            <p className="">Please check back later for updates</p>
           </div>
-        ) : (
-          <div
-            className={`lg:w-[70%] w-screen absolute ${isOpen ? "lg:left-[305px]" : "lg:left-0"} ${
-              isOpen ? "lg:px-0" : "lg:px-3"
-            } duration-500 transition-all ${isOpen ? "lg:w-[70%]" : "lg:w-full"}`}
-          >
-            <div className="flex justify-start pt-0 md:pt-10 text-white">
-              <Table className="">
-                <thead className="">
-                  <tr className="">
-                    <th className="hidden md:table-cell">Name</th>
-                    <th className="">Email</th>
-                    <th className="hidden lg:table-cell">Phone Number</th>
-                    <th className="hidden lg:table-cell">Address</th>
-                  </tr>
-                </thead>
-                <tbody className="">{rows}</tbody>
-              </Table>
-            </div>
+        </div>
+      ) : (
+        <div
+          className={`lg:w-[70%] w-screen absolute ${
+            isOpen ? "lg:left-[305px]" : "lg:left-0"
+          } ${isOpen ? "lg:px-0" : "lg:px-3"} duration-500 transition-all ${
+            isOpen ? "lg:w-[70%]" : "lg:w-full"
+          }`}
+        >
+          <div className="flex justify-start pt-0 md:pt-10 text-white">
+            <Table className="">
+              <thead className="">
+                <tr className="">
+                  <th className="hidden md:table-cell">Name</th>
+                  <th className="">Email</th>
+                  <th className="hidden lg:table-cell">Phone Number</th>
+                  <th className="hidden lg:table-cell">Address</th>
+                </tr>
+              </thead>
+              <tbody className="">{rows}</tbody>
+            </Table>
           </div>
-        )}
-      </div>
+        </div>
+      )}
+    </div>
   );
 };
 
