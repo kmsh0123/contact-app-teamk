@@ -10,28 +10,6 @@ import Favourite from "../components/Favourite";
 
 
 const Paths = () => {
-<<<<<<< HEAD
-  return (
-    <div>
-      <Routes>
-        <Route
-          path={"/"}
-          element={
-            <Routeguard>
-              {" "}
-              <Home />
-            </Routeguard>
-          }
-        />
-        <Route path={"/register"} element={<Register />} />
-        <Route path={"/login"} element={<Login />} />
-        <Route path={"/create"} element={<CreateContact />} />
-        <Route path={"/detail/:id"} element={<Detail />} />
-        <Route path={"/edit/:id"} element={<Edit />} />
-      </Routes>
-    </div>
-  );
-=======
 	return (
 		<div>
 			<Routes>
@@ -53,7 +31,6 @@ const Paths = () => {
 			</Routes>
 		</div>
 	);
->>>>>>> 79617543421c5a178c97943a924b381b4474f9fb
 };
 
 export default Paths;

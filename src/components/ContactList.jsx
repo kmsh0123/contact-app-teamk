@@ -166,47 +166,47 @@ const ContactList = () => {
             <tbody>
               <tr className="contact-list">
                 <td className="hidden md:table-cell">
-                  <Skeleton height={25} width={800} mt={6} radius="xl" />
+                  <Skeleton height={25} width={800} mt={6} radius="sm" />
                 </td>
               </tr>
               <tr className="contact-list">
                 <td className="hidden md:table-cell">
-                  <Skeleton height={25} width={800} mt={6} radius="xl" />
+                  <Skeleton height={25} width={800} mt={6} radius="sm" />
                 </td>
               </tr>
               <tr className="contact-list">
                 <td className="hidden md:table-cell">
-                  <Skeleton height={25} width={800} mt={6} radius="xl" />
+                  <Skeleton height={25} width={800} mt={6} radius="sm" />
                 </td>
               </tr>
               <tr className="contact-list">
                 <td className="hidden md:table-cell">
-                  <Skeleton height={25} width={800} mt={6} radius="xl" />
+                  <Skeleton height={25} width={800} mt={6} radius="sm" />
                 </td>
               </tr>
               <tr className="contact-list">
                 <td className="hidden md:table-cell">
-                  <Skeleton height={25} width={800} mt={6} radius="xl" />
+                  <Skeleton height={25} width={800} mt={6} radius="sm" />
                 </td>
               </tr>
               <tr className="contact-list">
                 <td className="hidden md:table-cell">
-                  <Skeleton height={25} width={800} mt={6} radius="xl" />
+                  <Skeleton height={25} width={800} mt={6} radius="sm" />
                 </td>
               </tr>
               <tr className="contact-list">
                 <td className="hidden md:table-cell">
-                  <Skeleton height={25} width={800} mt={6} radius="xl" />
+                  <Skeleton height={25} width={800} mt={6} radius="sm" />
                 </td>
               </tr>
               <tr className="contact-list">
                 <td className="hidden md:table-cell">
-                  <Skeleton height={25} width={800} mt={6} radius="xl" />
+                  <Skeleton height={25} width={800} mt={6} radius="sm" />
                 </td>
               </tr>
               <tr className="contact-list">
                 <td className="hidden md:table-cell">
-                  <Skeleton height={25} width={800} mt={6} radius="xl" />
+                  <Skeleton height={25} width={800} mt={6} radius="sm" />
                 </td>
               </tr>
             </tbody>

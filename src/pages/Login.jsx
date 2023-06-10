@@ -42,7 +42,7 @@ const Login = () => {
           <form
             onSubmit={form.onSubmit(async (values) => {
               try {
-                const { data } = await getLogin(values);
+                const data = await getLogin(values);
                 console.log(data);
                 dispatch(
                   addUser({
