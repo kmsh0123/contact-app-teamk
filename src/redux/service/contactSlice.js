@@ -17,7 +17,12 @@ export const contactSlice = createSlice({
             state.searched = payload;
         },
         addFavourite: (state, { payload })=>{
-            state.favourite = [...state.favourite,payload];
+            const isExisted=state.favourite.find(item=>item.id===payload.id);
+            if(isExisted){
+                return state;
+            }else{
+                state.favourite = [...state.favourite,payload];
+            }
         },
         removeFavourite: (state,{payload})=>{
             state.favourite=state.favourite.filter((item)=>item.id!==payload.id)
