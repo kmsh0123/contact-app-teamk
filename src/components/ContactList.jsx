@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { Checkbox, Loader, Table } from "@mantine/core";
+import { Avatar, Checkbox, Loader, Table } from "@mantine/core";
 import {
   useDeleteContactMutation,
   useGetContactQuery,
@@ -85,13 +85,14 @@ const ContactList = () => {
         <tr className=" hover:bg-gray-100 contact-list" key={contact?.id}>
           <td className="hidden md:table-cell">
             {contact?.email === null ? (
-              <p className=" ml-[12px]">-</p>
+              <Avatar color="pink" size="md" radius="xl"></Avatar>
             ) : (
-              <div className=" w-[30px] h-[30px] rounded-[50%] bg-pink-200 flex items-center">
-                <p className=" text-center w-[30px] h-[30px] mt-[10px] text-gray-600">
+              <Avatar color="pink" size="md" radius="xl">
+                {" "}
+                <p className="text-lg">
                   {contact?.name.substring(0, 1).toUpperCase()}
-                </p>
-              </div>
+                </p>{" "}
+              </Avatar>
             )}
           </td>
           <td className="hidden md:table-cell">

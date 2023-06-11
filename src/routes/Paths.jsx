@@ -5,6 +5,7 @@ import CreateContact from "../components/CreateContact";
 import Detail from "../components/Detail";
 import Edit from "../components/Edit";
 import FormPage from "../pages/FormPage";
+import UserProfile from "../pages/UserProfile";
 
 const Paths = () => {
   return (
@@ -19,8 +20,7 @@ const Paths = () => {
             </Routeguard>
           }
         />
-        {/* <Route path={"/register"} element={<Register />} />
-        <Route path={"/login"} element={<Login />} /> */}
+        <Route path={"/userProfile"} element={<UserProfile />} />
         <Route path={"/create"} element={<CreateContact />} />
         <Route path={"/detail/:id"} element={<Detail />} />
         <Route path={"/edit/:id"} element={<Edit />} />

@@ -1,8 +1,8 @@
-import { Loader, Menu, ScrollArea } from "@mantine/core";
+import { Avatar, Loader, Menu, ScrollArea } from "@mantine/core";
 import Cookies from "js-cookie";
 import { BsBoxArrowInRight } from "react-icons/bs";
 import { useDispatch } from "react-redux";
-import "../style/glassmorphic.css"
+import "../style/glassmorphic.css";
 import { useGetLogOutMutation } from "../redux/Api/contactApi";
 import { removeUser } from "../redux/service/authSlice";
 import { Link, useNavigate } from "react-router-dom";
@@ -13,7 +13,7 @@ const UserMenu = () => {
   const user = JSON.parse(Cookies.get("user"));
 
   const [getLogOut, { isLoading }] = useGetLogOutMutation();
-  const nav = useNavigate()
+  const nav = useNavigate();
   const dispatch = useDispatch();
 
   const logOutHandler = async () => {
@@ -38,11 +38,17 @@ const UserMenu = () => {
       >
         {/* Icon is here. */}
         <Menu.Target>
-          <div className=" relative hover:bg-gray-600 w-12 h-12 rounded-[50%] bg-blue-200 text-gray-600 hover:text-gray-300">
+          {/* <div className=" relative hover:bg-gray-600 w-12 h-12 rounded-[50%] bg-blue-200 text-gray-600 hover:text-gray-300">
             <p className=" absolute w-12 h-12 rounded-[50%] text-center mt-[4px] text-[27px] font-bold">
               {user?.name.substring(0, 1).toUpperCase()}
             </p>
-          </div>
+          </div> */}
+          <Avatar color="cyan" size="lg" radius="xl">
+            {" "}
+            <p className="text-3xl">
+              {user?.name.substring(0, 1).toUpperCase()}
+            </p>{" "}
+          </Avatar>
         </Menu.Target>
 
         {/* dropdown is here. */}
@@ -60,7 +66,7 @@ const UserMenu = () => {
                   </p>
                 </ScrollArea>
                 {/* Enter arrow */}
-                <Link to={"/profile"}>
+                <Link to={"/userProfile"}>
                   <div
                     title="To User Profile"
                     className=" relative ml-[-18px] mt-[1px] bg-transparent w-9 h-9 rounded-[50%] items-center hover:bg-gray-400 hover:text-white"
