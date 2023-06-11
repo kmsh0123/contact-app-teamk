@@ -6,7 +6,7 @@ const Routeguard = ({ children }) => {
 	if (token) {
 		return children;
 	} else {
-		return <Navigate to={"/login"} />;
+		return <Navigate to={"/formPage"} />;
 	}
 };
 
