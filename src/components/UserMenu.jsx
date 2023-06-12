@@ -1,11 +1,11 @@
-import { Avatar, Loader, Menu, ScrollArea } from "@mantine/core";
+import { Loader, Menu, ScrollArea } from "@mantine/core";
 import Cookies from "js-cookie";
 import { BsBoxArrowInRight } from "react-icons/bs";
+import { FaUser } from "react-icons/fa";
 import { useDispatch } from "react-redux";
-import "../style/glassmorphic.css";
+import { Link, useNavigate } from "react-router-dom";
 import { useGetLogOutMutation } from "../redux/Api/contactApi";
 import { removeUser } from "../redux/service/authSlice";
-import { Link, useNavigate } from "react-router-dom";
 
 const UserMenu = () => {
   const token = Cookies.get("token");
@@ -13,6 +13,7 @@ const UserMenu = () => {
   const user = JSON.parse(Cookies.get("user"));
 
   const [getLogOut, { isLoading }] = useGetLogOutMutation();
+
   const nav = useNavigate();
   const dispatch = useDispatch();
 
@@ -20,7 +21,7 @@ const UserMenu = () => {
     const { data } = await getLogOut(token);
     dispatch(removeUser());
     if (data?.success) {
-      nav("/formPage");
+      nav("/login");
     }
     // console.log(data);
   };
@@ -38,17 +39,11 @@ const UserMenu = () => {
       >
         {/* Icon is here. */}
         <Menu.Target>
-          {/* <div className=" relative hover:bg-gray-600 w-12 h-12 rounded-[50%] bg-blue-200 text-gray-600 hover:text-gray-300">
-            <p className=" absolute w-12 h-12 rounded-[50%] text-center mt-[4px] text-[27px] font-bold">
+          <div className=" relative hover:bg-gray-600 w-12 h-12 rounded-[50%] bg-blue-800 text-white hover:outline-gray-600 outline-double outline-[6px] outline-blue-800">
+            <p className=" absolute w-12 h-12 rounded-[50%] text-center mt-[3px] text-4xl font-medium">
               {user?.name.substring(0, 1).toUpperCase()}
             </p>
-          </div> */}
-          <Avatar color="cyan" size="lg" radius="xl">
-            {" "}
-            <p className="text-3xl">
-              {user?.name.substring(0, 1)}
-            </p>{" "}
-          </Avatar>
+          </div>
         </Menu.Target>
 
         {/* dropdown is here. */}
@@ -58,30 +53,21 @@ const UserMenu = () => {
               <div className=" container mx-auto flex">
                 {/* name */}
                 <ScrollArea w={160} h={30} type="never">
-                  <p
-                    title="Scroll to see full name"
-                    className=" text-gray-600 font-medium text-2xl pb-1"
-                  >
+                  <p className=" text-gray-600 font-medium text-2xl pb-1">
                     {user?.name}
                   </p>
                 </ScrollArea>
                 {/* Enter arrow */}
-                <Link to={"/userProfile"}>
-                  <div
-                    title="To User Profile"
-                    className=" relative ml-[-18px] mt-[1px] bg-transparent w-9 h-9 rounded-[50%] items-center hover:bg-gray-400 hover:text-white"
-                  >
+                <Link to={"/profile"}>
+                  <div className=" relative ml-[-18px] mt-[1px] bg-transparent w-9 h-9 rounded-[50%] items-center hover:bg-gray-400 hover:text-white">
                     <BsBoxArrowInRight className=" absolute mt-[6px] ml-[3px] text-2xl " />
                   </div>
                 </Link>
               </div>
               {/* email */}
               <ScrollArea w={170} type="never">
-                <p
-                  title="Scroll to see full email"
-                  className=" overflow-hidden text-gray-600 mb-[18px] font-medium"
-                >
-                  {user?.email}
+                <p className=" overflow-hidden text-gray-600 mb-[18px] font-medium">
+                  {user?.email}http://localhost:5173/
                 </p>
               </ScrollArea>
             </div>
@@ -94,14 +80,13 @@ const UserMenu = () => {
               onClick={logOutHandler}
               disabled={isLoading && true}
               type="submit"
-              className=" bg-red-600 text-white text-[15px] px-4 mb-2 py-1 hover:bg-red-400 rounded w-25 h-9 mx-auto block"
+              className=" bg-red-600 text-white text-[15px] px-4 mb-2 py-1 hover:bg-gray-400 rounded w-25 h-9 mx-auto block"
             >
               {isLoading ? (
                 <Loader
                   className=" mx-auto my-auto block"
                   color="white"
                   size="sm"
-                  variant="dots"
                 />
               ) : (
                 "Sign out"
