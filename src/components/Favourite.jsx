@@ -117,12 +117,13 @@ const Favourite = () => {
         </nav>
         {/* nav  */}
 
-        <div className=" flex justify-center items-center h-screen">
-          <img
+        <div className=" flex justify-center items-center h-screen ">
+          {/* <img
             className=" animate__animated animate-pulse"
             src="https://img.freepik.com/free-vector/no-data-concept-illustration_114360-536.jpg?size=626&ext=jpg&uid=R74182628&ga=GA1.2.647782033.1656313783&semt=ais"
             alt=""
-          />
+          /> */}
+          <iframe src="https://embed.lottiefiles.com/animation/85023" className=""></iframe>
         </div>
       </>
     );
