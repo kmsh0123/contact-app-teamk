@@ -2,6 +2,7 @@ import { AiOutlineClose, AiOutlineMenu } from "react-icons/ai";
 import { BiArchiveIn } from "react-icons/bi";
 import { BsFillPersonFill } from "react-icons/bs";
 import {HiSearch} from "react-icons/hi"
+import {FaHeart} from "react-icons/fa"
 import { useDispatch, useSelector } from "react-redux";
 import { Link, NavLink } from "react-router-dom";
 import { toggleNavbar } from "../redux/service/navbarSlice";
@@ -132,12 +133,11 @@ const Navbar = () => {
 							<BsFillPersonFill className="" />
 							<p className="">Contacts</p>
 						</NavLink>
-
 						<NavLink
-							to="/other"
+							to="/favourite"
 							className="space-x-5 flex items-center p-3 px-5"
 						>
-							<BiArchiveIn className="" />
+							<FaHeart className="" />
 							<p className="">Favourite</p>
 						</NavLink>
 					</ul>
