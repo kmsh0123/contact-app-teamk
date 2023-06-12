@@ -20,14 +20,13 @@ const ContactList = () => {
   const contacts = useSelector((state) => state.contactSlice.contacts);
   const searched = useSelector((state) => state.contactSlice.searched);
   const isOpen = useSelector((state) => state.navbar.isOpen);
-  
+
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(addContacts(data?.contacts?.data));
   }, [data, dispatch]);
-
-  
+  console.log(data?.contacts?.data);
 
   const deleteHandler = (id) => {
     const swalWithBootstrapButtons = Swal.mixin({
@@ -117,8 +116,11 @@ const ContactList = () => {
 
                   <Menu.Item target="_blank">
                     <Link>
-                      <p className=" text-xl text-blue-600" onClick={()=>dispatch(addFavourite(contact))}>
-                        <FiHeart/>
+                      <p
+                        className=" text-xl text-blue-600"
+                        onClick={() => dispatch(addFavourite(contact))}
+                      >
+                        <FiHeart />
                       </p>
                     </Link>
                   </Menu.Item>
@@ -128,13 +130,12 @@ const ContactList = () => {
                       <p className="">Edit</p>
                     </Link>
                   </Menu.Item>
-                  
-                   <Menu.Item target="_blank">
+
+                  <Menu.Item target="_blank">
                     <Link to={`/detail/${contact?.id}`}>
                       <p className="">detail</p>
                     </Link>
                   </Menu.Item>
-                  
                 </Menu.Dropdown>
               </Menu>
             </div>
@@ -143,6 +144,7 @@ const ContactList = () => {
       );
     });
 
+  // Skeleton Loading
   if (isLoading) {
     return (
       <div
@@ -156,12 +158,12 @@ const ContactList = () => {
         <div className="flex justify-start pt-0 md:pt-10 text-white">
           <Table>
             <thead>
-            <tr className="">
-                  <th className="hidden md:table-cell">Name</th>
-                  <th className="">Email</th>
-                  <th className="hidden lg:table-cell">Phone Number</th>
-                  <th className="hidden lg:table-cell">Address</th>
-                </tr>
+              <tr className="">
+                <th className="hidden md:table-cell">Name</th>
+                <th className="">Email</th>
+                <th className="hidden lg:table-cell">Phone Number</th>
+                <th className="hidden lg:table-cell">Address</th>
+              </tr>
             </thead>
             <tbody>
               <tr className="contact-list">
@@ -216,47 +218,41 @@ const ContactList = () => {
     );
   }
 
-
-
-
   return (
     <>
-      <div className=" mt-10 flex gap-5 justify-center">
-        {/* <Link to={"/create"}>
-          <button className="bg-yellow-400 font-semibold cursor-pointer shadow-xl py-2 px-6 rounded-3xl flex items-center gap-5 ">
-            Create New Contact{" "}
-            <FiUserPlus className=" text-center text-red-600" />
-          </button>
-        </Link> */}
-        {/* <input
-          type="text"
-          className="px-6 bg-blue-700 text-white placeholder-yellow-400 shadow-xl rounded-3xl outline-none "
-          placeholder="Search"
-          value={searched}
-          onChange={(e) => dispatch(setSearched(e.target.value))}
-        /> */}
-      </div>
-
       <div className="flex justify-center md:justify-start">
-        <div
-          className={`absolute ${isOpen ? "lg:left-[305px]" : "lg:left-0"} ${
-            isOpen ? "lg:px-0" : "lg:px-3"
-          } duration-500 transition-all`}
-        >
-          <div className="lg:w-[75vw] w-screen  flex justify-start pt-0 md:pt-10 text-white">
-            <Table className="">
-              <thead className="">
-                <tr className="">
-                  <th className="hidden md:table-cell">Name</th>
-                  <th className="">Email</th>
-                  <th className="hidden lg:table-cell">Phone Number</th>
-                  <th className="hidden lg:table-cell">Address</th>
-                </tr>
-              </thead>
-              <tbody className="">{rows}</tbody>
-            </Table>
+        {data?.contacts?.data.length === 0 ? (
+          <div className="flex justify-center flex-col gap-3 items-center h-screen w-[80%] mx-auto">
+            <h1 className="text-3xl font-semibold text-blue-700">
+              Hello Dear!
+            </h1>
+            <iframe src="https://embed.lottiefiles.com/animation/85023"></iframe>
+            <div className="text-gray-500 text-sm text-center">
+              <h1 className="">There are no contacts to display</h1>
+              <p className="">Please check back later for updates</p>
+            </div>
           </div>
-        </div>
+        ) : (
+          <div
+            className={`absolute ${isOpen ? "lg:left-[305px]" : "lg:left-0"} ${
+              isOpen ? "lg:px-0" : "lg:px-3"
+            } duration-500 transition-all`}
+          >
+            <div className="lg:w-[75vw] w-screen  flex justify-start pt-0 md:pt-10 text-white">
+              <Table className="">
+                <thead className="">
+                  <tr className="">
+                    <th className="hidden md:table-cell">Name</th>
+                    <th className="">Email</th>
+                    <th className="hidden lg:table-cell">Phone Number</th>
+                    <th className="hidden lg:table-cell">Address</th>
+                  </tr>
+                </thead>
+                <tbody className="">{rows}</tbody>
+              </Table>
+            </div>
+          </div>
+        )}
       </div>
     </>
   );
