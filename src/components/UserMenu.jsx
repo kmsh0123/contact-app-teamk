@@ -46,7 +46,7 @@ const UserMenu = () => {
           <Avatar color="cyan" size="lg" radius="xl">
             {" "}
             <p className="text-3xl">
-              {user?.name.substring(0, 1).toUpperCase()}
+              {user?.name.substring(0, 1)}
             </p>{" "}
           </Avatar>
         </Menu.Target>

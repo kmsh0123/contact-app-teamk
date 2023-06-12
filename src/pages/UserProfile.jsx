@@ -19,7 +19,7 @@ const UserProfile = () => {
   const logoutHandler = async () => {
     const { data } = await logout(token);
     dispatch(removeUser());
-    if (data?.success) nav("/login");
+    if (data?.success) nav("/formPage");
     console.log(data);
   };
   return (
@@ -44,7 +44,7 @@ const UserProfile = () => {
               >
                 {" "}
                 <p className="text-4xl">
-                  {user?.name.substring(0, 1).toUpperCase()}
+                  {user?.name.substring(0, 1)}
                 </p>{" "}
               </Avatar>
             </div>
@@ -75,14 +75,15 @@ const UserProfile = () => {
                 className=" mx-auto my-auto block"
                 color="white"
                 size="sm"
+                variant="dots"
               />
             ) : (
               "Sign out"
             )}
           </button>
         </div>
-        <div className=" w-[600px] text-center mt-8">
-          <p>Plenty of features are yet to come and currently in development. Our team&#39;s developers are trying out their hardest and best to improve the experience over using this application hence we like to request our users to wait and give us a little bit of more time. Thank you for your patientness ...</p>
+        <div className=" text-sm w-[700px] text-center mt-8">
+          <p>Plenty of features are yet to come and currently in development. Our team&#39;s developers are trying out their hardest and best to improve the experience over using this application, with bloods, sweats, tears and souls, without sleeping all days all nights. Hence we like to request our users to wait and give us a little bit of more time. Thank you for your patientness ...</p>
         </div>
       </div>
     </div>

@@ -90,7 +90,7 @@ const ContactList = () => {
               <Avatar color="pink" size="md" radius="xl">
                 {" "}
                 <p className="text-lg">
-                  {contact?.name.substring(0, 1).toUpperCase()}
+                  {contact?.name.substring(0, 1)}
                 </p>{" "}
               </Avatar>
             )}

@@ -279,7 +279,7 @@
 }
 
 .bgBlueIn {
-  animation: 0.5s linear 0s forwards blueBgIn;
+  animation: 0.8s linear 0s forwards blueBgIn;
 }
 
 @keyframes blueBgIn {
@@ -309,7 +309,7 @@
 }
 
 .bgRedIn {
-  animation: 0.5s linear 0s forwards redBgIn;
+  animation: 0.8s linear 0s forwards redBgIn;
 }
 
 @keyframes redBgIn {
