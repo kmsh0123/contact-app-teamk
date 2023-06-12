@@ -7,13 +7,18 @@ import { Link, NavLink } from "react-router-dom";
 import { toggleNavbar } from "../redux/service/navbarSlice";
 import SearchInput from "./SearchInput";
 import UserMenu from "../components/UserMenu"
-import { useState } from "react";
-import { FaHeart } from "react-icons/fa";
+import { useMediaQuery } from "react-responsive";
+import { toggleDarkMode } from "../redux/service/darkModeSlice";
+
 
 const Navbar = () => {
-	const [click,setClick] = useState(true)
-	const isOpen = useSelector((state) => state.navbar.isOpen);
+	const isTab = useMediaQuery({query : "(max-width : 992px)"});
+	console.log(isTab,"isTab");
+	const isOpen = useSelector((state) => isTab ? !state.navbar.isOpen : state.navbar.isOpen);
+	const {mode} = useSelector(state=>state.darkMode);
 	const dispatch = useDispatch();
+	
+
 
 	return (
 		<>
@@ -45,7 +50,7 @@ const Navbar = () => {
 				{/* </div> */}
 			{/* </nav> */}
 			{/* </> */}
-			<nav className='bg-white p-2 flex items-center w- justify-between space-x-5 cursor-pointer'>
+		<nav className={`${mode ?"bg-white" : "bg-slate-900"} p-2 flex items-center w- justify-between space-x-5 cursor-pointer fixed z-40 top-0 left-0 right-0`}>
            <div className="flex items-center space-x-3">
             <div onClick={() => dispatch(toggleNavbar())} className="">
               {
@@ -67,7 +72,7 @@ const Navbar = () => {
               <div className='flex items-center lg:space-x-5 space-x-2'>
                     <label htmlFor="toggleB" className="flex items-center cursor-pointer">
                       <div className="relative">
-                        <input type="checkbox" id="toggleB" className="sr-only"/>
+                        <input onClick={()=>dispatch(toggleDarkMode())} type="checkbox" id="toggleB" className="sr-only" defaultChecked={!mode}/>
                         <div className="block bg-gray-600 w-14 h-8 rounded-full"></div>
                         <div className="dot absolute left-1 top-1 bg-white w-6 h-6 rounded-full transition"></div>
                       </div>
@@ -79,14 +84,14 @@ const Navbar = () => {
 			{/* NAVBAR */}
 
 			{/* SIDEBAR */}
-			<div
-				className={`lg:w-[14rem] absolute top-0 lg:top-auto z-50 text-center bg-white shadow lg:shadow-none shadow-black h-screen lg:h-auto cursor-pointer transition-all duration-500 my-0 lg:my-5 ${
+			<div 
+				className={`w-[65%] md:w-[14rem] absolute h-screen lg:h-96 lg:top-[50px] z-50 text-center ${mode ?"bg-white" : "bg-slate-900"} shadow lg:shadow-none shadow-black cursor-pointer my-0 lg:my-5 ${
 					isOpen ? "left-0" : "left-[-400px]"
 				}`}
 			>
 				<Link to={"/create"}>
 					<div
-						className="lg:flex lg:flex-row hidden items-center space-x-2 p-2 ms-0 rounded-3xl shadow shadow-black hover:text-blue-800 hover:bg-blue-100 duration-300 transition-all hover:shadow-md hover:shadow-black"
+						className={`lg:flex lg:flex-row hidden items-center space-x-2 p-2 ms-0 rounded-3xl shadow shadow-black hover:text-blue-800 hover:bg-blue-100  ${mode ?"bg-white" : "bg-slate-900"} hover:shadow-md hover:shadow-black`}
 		
 					>
 						<svg
@@ -133,14 +138,6 @@ const Navbar = () => {
 							className="space-x-5 flex items-center p-3 px-5"
 						>
 							<BiArchiveIn className="" />
-							<p className="">Other contacts</p>
-						</NavLink>
-
-						<NavLink
-							to="/favourite"
-							className="space-x-5 flex items-center p-3 px-5 text-xl"
-						>
-							<FaHeart className="" />
 							<p className="">Favourite</p>
 						</NavLink>
 					</ul>

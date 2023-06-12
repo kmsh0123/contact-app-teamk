@@ -1,17 +1,16 @@
-import { useEffect } from "react";
-import { Loader, Skeleton, Table } from "@mantine/core";
+import { useContext, useEffect, useState } from "react";
+import { Loader, Table } from "@mantine/core";
 import {
   useDeleteContactMutation,
   useGetContactQuery,
 } from "../redux/Api/contactListApi";
 import Cookies from "js-cookie";
 import Swal from "sweetalert2";
-import { Link } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { addContacts, addFavourite } from "../redux/service/contactSlice";
+import { addContacts } from "../redux/service/contactSlice";
 import { Menu, Button } from "@mantine/core";
 import { RiMore2Fill } from "react-icons/ri";
-import { FiHeart } from "react-icons/fi";
 
 const ContactList = () => {
   const token = Cookies.get("token");
@@ -20,13 +19,14 @@ const ContactList = () => {
   const contacts = useSelector((state) => state.contactSlice.contacts);
   const searched = useSelector((state) => state.contactSlice.searched);
   const isOpen = useSelector((state) => state.navbar.isOpen);
-
+  const {mode} = useSelector(state=>state.darkMode);
   const dispatch = useDispatch();
-
+  
   useEffect(() => {
     dispatch(addContacts(data?.contacts?.data));
   }, [data, dispatch]);
-  console.log(data?.contacts?.data);
+
+  // console.log(data);
 
   const deleteHandler = (id) => {
     const swalWithBootstrapButtons = Swal.mixin({
@@ -83,16 +83,16 @@ const ContactList = () => {
     ?.map((contact) => {
       return (
         <tr className="contact-list" key={contact?.id}>
-          <td className="hidden md:table-cell">
+          <td className={`${mode ? "text-slate-900" : "text-white"} hidden md:table-cell`}>
             {contact?.name === null ? "exampleName" : contact?.name}
           </td>
-          <td>
+          <td className={`${mode ? "text-slate-900" : "text-white"}`}>
             {contact?.email === null ? "example@gmail.com" : contact?.email}
           </td>
-          <td className="hidden lg:table-cell">
+          <td className={`${mode ? "text-slate-900" : "text-white"} hidden md:table-cell`}>
             {contact?.phone === null ? "-" : contact?.phone}
           </td>
-          <td className="hidden lg:table-cell">
+          <td className={`${mode ? "text-slate-900" : "text-white"} hidden md:table-cell`}>
             {contact?.address === null ? "-" : contact?.address}
           </td>
           <td className="del-icon">
@@ -115,25 +115,14 @@ const ContactList = () => {
                   </Menu.Item>
 
                   <Menu.Item target="_blank">
-                    <Link>
-                      <p
-                        className=" text-xl text-blue-600"
-                        onClick={() => dispatch(addFavourite(contact))}
-                      >
-                        <FiHeart />
-                      </p>
+                    <Link to={`/detail/${contact?.id}`}>
+                      <p className="">Detail</p>
                     </Link>
                   </Menu.Item>
 
                   <Menu.Item target="_blank">
                     <Link to={`/edit/${contact?.id}`}>
                       <p className="">Edit</p>
-                    </Link>
-                  </Menu.Item>
-
-                  <Menu.Item target="_blank">
-                    <Link to={`/detail/${contact?.id}`}>
-                      <p className="">detail</p>
                     </Link>
                   </Menu.Item>
                 </Menu.Dropdown>
@@ -144,89 +133,22 @@ const ContactList = () => {
       );
     });
 
-  // Skeleton Loading
   if (isLoading) {
     return (
-      <div
-        className={`lg:w-[70%] w-screen absolute ${
-          isOpen ? "lg:left-[305px]" : "lg:left-0"
-        } ${isOpen ? "lg:px-0" : "lg:px-3"} duration-500 transition-all ${
-          isOpen ? "lg:w-[70%]" : "lg:w-full"
-        }`}
-      >
-        {/* <Loader color="grape" variant="dots" />; */}
-        <div className="flex justify-start pt-0 md:pt-10 text-white">
-          <Table>
-            <thead>
-              <tr className="">
-                <th className="hidden md:table-cell">Name</th>
-                {/* <th className="">Email</th> */}
-                {/* <th className="hidden lg:table-cell">Phone Number</th> */}
-                {/* <th className="hidden lg:table-cell">Address</th> */}
-              </tr>
-            </thead>
-            <tbody>
-              <tr className="contact-list">
-                <td className="hidden md:table-cell">
-                  <Skeleton height={25} width={800} mt={6} radius="sm" />
-                </td>
-              </tr>
-              <tr className="contact-list">
-                <td className="hidden md:table-cell">
-                  <Skeleton height={25} width={800} mt={6} radius="sm" />
-                </td>
-              </tr>
-              <tr className="contact-list">
-                <td className="hidden md:table-cell">
-                  <Skeleton height={25} width={800} mt={6} radius="sm" />
-                </td>
-              </tr>
-              <tr className="contact-list">
-                <td className="hidden md:table-cell">
-                  <Skeleton height={25} width={800} mt={6} radius="sm" />
-                </td>
-              </tr>
-              <tr className="contact-list">
-                <td className="hidden md:table-cell">
-                  <Skeleton height={25} width={800} mt={6} radius="sm" />
-                </td>
-              </tr>
-              <tr className="contact-list">
-                <td className="hidden md:table-cell">
-                  <Skeleton height={25} width={800} mt={6} radius="sm" />
-                </td>
-              </tr>
-              <tr className="contact-list">
-                <td className="hidden md:table-cell">
-                  <Skeleton height={25} width={800} mt={6} radius="sm" />
-                </td>
-              </tr>
-              <tr className="contact-list">
-                <td className="hidden md:table-cell">
-                  <Skeleton height={25} width={800} mt={6} radius="sm" />
-                </td>
-              </tr>
-              <tr className="contact-list">
-                <td className="hidden md:table-cell">
-                  <Skeleton height={25} width={800} mt={6} radius="sm" />
-                </td>
-              </tr>
-            </tbody>
-          </Table>
-        </div>
+      <div className="flex justify-center items-center h-screen">
+        <Loader color="grape" variant="dots" />;
       </div>
     );
   }
 
   return (
-    <>
       <div className="flex justify-center md:justify-start">
         {data?.contacts?.data.length === 0 ? (
           <div className="flex justify-center flex-col gap-3 items-center h-screen w-[80%] mx-auto">
             <h1 className="text-3xl font-semibold text-blue-700">
               Hello Dear!
             </h1>
-            <iframe src="https://embed.lottiefiles.com/animation/85023"></iframe>
+            <iframe src="https://embed.lottiefiles.com/animation/67375"></iframe>
             <div className="text-gray-500 text-sm text-center">
               <h1 className="">There are no contacts to display</h1>
               <p className="">Please check back later for updates</p>
@@ -234,18 +156,18 @@ const ContactList = () => {
           </div>
         ) : (
           <div
-            className={`absolute ${isOpen ? "lg:left-[305px]" : "lg:left-0"} ${
+            className={`lg:w-[70%] w-screen absolute ${isOpen ? "lg:left-[305px]" : "lg:left-0"} ${
               isOpen ? "lg:px-0" : "lg:px-3"
-            } duration-500 transition-all`}
+            } duration-500 transition-all ${isOpen ? "lg:w-[70%]" : "lg:w-full"}`}
           >
-            <div className="lg:w-[75vw] w-screen  flex justify-start pt-0 md:pt-10 text-white">
-              <Table className="">
+            <div className="flex justify-start pt-0 md:pt-10">
+              <Table className="relative top-24 lg:top-12 md:top-16">
                 <thead className="">
                   <tr className="">
-                    <th className="hidden md:table-cell">Name</th>
-                    <th className="">Email</th>
-                    <th className="hidden lg:table-cell">Phone Number</th>
-                    <th className="hidden lg:table-cell">Address</th>
+                    <th className={`${ mode ? "color-slate" : "color-white !important"} hidden md:table-cell`}>Name</th>
+                    <th className={`${ mode ? "color-slate" : "color-white"}`}>Email</th>
+                    <th className={`${ mode ? "color-slate" : "color-white"} hidden md:table-cell`}>Phone Number</th>
+                    <th className={`${ mode ? "color-slate" : "color-white"} hidden md:table-cell`}>Address</th>
                   </tr>
                 </thead>
                 <tbody className="">{rows}</tbody>
@@ -254,7 +176,6 @@ const ContactList = () => {
           </div>
         )}
       </div>
-    </>
   );
 };
 

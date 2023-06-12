@@ -7,8 +7,10 @@ import ThemeProvider from "./context/ThemeContext";
 import AppTheme from "./container/AppTheme";
 import Paths from "./routes/Paths";
 import "./index.css"
+import { useSelector } from "react-redux";
 
 const Home = lazy(() => import("./pages/Home"));
+
 
 const router = createBrowserRouter([
   {
@@ -23,8 +25,10 @@ const router = createBrowserRouter([
 ]);
 
 function App() {
+const {mode} = useSelector(state=>state.darkMode);
+
   return (
-    <div className="w-full h-screen flex flex-col">
+    <div className={`w-full h-screen flex flex-col ${mode ? "bg-white" : "bg-slate-900"}`}>
       {/* <SidebarProvider>
         <ThemeProvider>
           <AppTheme>

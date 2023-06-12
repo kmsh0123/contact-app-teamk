@@ -13,7 +13,9 @@ import { RxTwitterLogo } from "../../node_modules/react-icons/rx";
 import gmail from "../images/gmail.svg";
 import facebook from "../images/facebook.svg";
 import twitter from "../images/twitter.svg";
-import {AiOutlineStar,AiOutlinePrinter,AiFillStar} from "../../node_modules/react-icons/ai";
+import {AiOutlineStar,AiOutlinePrinter,AiFillStar,AiOutlineClose, AiOutlineMenu } from "../../node_modules/react-icons/ai";
+import { BiArchiveIn } from "react-icons/bi";
+import { BsFillPersonFill } from "react-icons/bs";
 import { BsThreeDotsVertical,BsSearch } from "../../node_modules/react-icons/bs";
 import { CiExport } from "../../node_modules/react-icons/ci";
 import { FiSettings } from "../../node_modules/react-icons/fi";
@@ -24,9 +26,13 @@ import { useState } from "react";
 import { Modal } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
 import {  Group, Button, TextInput } from '@mantine/core';
+import SearchInput from "./SearchInput";
+import { toggleNavbar } from "../redux/service/navbarSlice";
+import { toggleDarkMode } from "../redux/service/darkModeSlice";
 
 
 const Detail = () => {
+  const {mode} = useSelector(state=>state.darkMode);
   const token = Cookies.get("token");
   const { id } = useParams();
   const { data, isLoading } = useGetSingleContactQuery({ id, token });
@@ -50,7 +56,7 @@ const Detail = () => {
   return (
     <div>
       {/* navbar */}
-      <nav className="bg-white shadow flex items-center justify-around py-3 top-0 fixed w-full ">
+      {/* <nav className="bg-white shadow flex items-center justify-around py-3 top-0 fixed w-full ">
         <div className=" flex items-center">
           <img
             className="w-[40px] hidden md:block"
@@ -76,9 +82,35 @@ const Detail = () => {
           <FiSettings className={` text-gray-600 text-lg mx-3`}/>
           <div className=" w-12 h-12 ms-5 rounded-full bg-blue-600"></div>
         </div>
-      </nav>
+      </nav> */}
+     {/* <Nav> */}
+     <nav className={`${mode ?"bg-white" : "bg-slate-900"} p-2 flex items-center w- justify-between space-x-5 cursor-pointer fixed z-40 top-0 left-0 right-0`}>
+           <div className="flex items-center space-x-3">
+            <div onClick={() => dispatch(toggleNavbar())} className="">
+              <AiOutlineMenu className={`text-xl hover:bg-[#3c404314] cursor-pointer w-10 h-10 p-3 hover:rounded-full duration-100`}/> 
+            </div>
+           <img className='w-[40px] hidden md:block' src="https://www.gstatic.com/images/branding/product/2x/contacts_2022_48dp.png" alt="" />
+           <h1 className='text-[#5f6368] text-2xl'>Friends</h1>
+           {/* <div className="lg:space-x-24">
+           <HiSearch onClick={() => setClick(!click)} className='absolute lg:top-[13px] md:top-[9px] top-[3px] lg:ms-[7rem] md:ms-3 hover:bg-[#3c404314] cursor-pointer w-12 h-12 lg:w-10 lg:h-10 p-3 hover:rounded-full duration-100'/><input type="text" placeholder='Search' className={`lg:w-[600px] md:w-[400px] w-[12rem] p-3 bg-[#3c404314] outline-none rounded-lg md:px-16 pe-1 cursor-pointer absolute top-[5px] left-0 md:static bg-white ms-2 lg:ms-auto shadow shadow-gray-950 ${click ? "hidden" : "block"} md:bg-transparent md:block`}/> 
+           <AiOutlineClose onClick={() => setClick(!click)} className={`absolute top-[20px] left-[170px] md:static ${click ? "hidden" : "block"} md:hidden`}/>
+           </div> */}
+			<SearchInput />
+           </div>
+              <div className='flex items-center lg:space-x-5 space-x-2'>
+                    <label htmlFor="toggleB" className="flex items-center cursor-pointer">
+                      <div className="relative">
+                        <input onClick={()=>dispatch(toggleDarkMode())} type="checkbox" id="toggleB" className="sr-only" defaultChecked={!mode}/>
+                        <div className="block bg-gray-600 w-14 h-8 rounded-full"></div>
+                        <div className="dot absolute left-1 top-1 bg-white w-6 h-6 rounded-full transition"></div>
+                      </div>
+                    </label>
+                <img src="https://img.freepik.com/free-icon/user_318-159711.jpg" className='w-10 h-10' alt="" />
+              </div>
+        </nav>
+     {/* </Nav> */}
 
-      <div className=" bg-white  px-10">
+      <div className={`${mode ? "bg-white" : "bg-slate-900"}  px-10`}>
         <div className=" flex flex-col gap-10 w-full">
           {/* Avator */}
           <div className=" img flex flex-col md:flex-row justify-center gap-12 items-center mt-12">
@@ -88,7 +120,7 @@ const Detail = () => {
               className=" w-48 h-48 sm:w-60 sm:h-60 object-cover mt-20 sm:mt-12 rounded-full"
             />
             <div className=" flex flex-col gap-3">
-              <p className=" font-semibold text-2xl mb-3 mt-0 sm:mt-20 text-gray-700 font-sans tracking-wide">
+              <p className={`font-semibold text-2xl mb-3 mt-0 sm:mt-20 text-gray-700 font-sans tracking-wide ${mode ? "text-slate-900" : "text-white"}`}>
                 {data.contact.name}
               </p>
               <div>
