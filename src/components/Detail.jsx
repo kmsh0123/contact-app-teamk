@@ -13,17 +13,18 @@ import { RxTwitterLogo } from "../../node_modules/react-icons/rx";
 import gmail from "../images/gmail.svg";
 import facebook from "../images/facebook.svg";
 import twitter from "../images/twitter.svg";
-import {
-  AiOutlineStar,
-  AiOutlinePrinter,
-  AiFillStar
-} from "../../node_modules/react-icons/ai";
-import { BsThreeDotsVertical } from "../../node_modules/react-icons/bs";
-import { TfiExport } from "../../node_modules/react-icons/tfi";
+import {AiOutlineStar,AiOutlinePrinter,AiFillStar} from "../../node_modules/react-icons/ai";
+import { BsThreeDotsVertical,BsSearch } from "../../node_modules/react-icons/bs";
+import { CiExport } from "../../node_modules/react-icons/ci";
 import { FiSettings } from "../../node_modules/react-icons/fi";
 import { BiHelpCircle } from "../../node_modules/react-icons/bi";
 import { useSelector,useDispatch } from "react-redux";
-import { removeFavourite } from "../redux/service/contactSlice";
+import { addFavourite, removeFavourite } from "../redux/service/contactSlice";
+import { useState } from "react";
+import { Modal } from '@mantine/core';
+import { useDisclosure } from '@mantine/hooks';
+import {  Group, Button, TextInput } from '@mantine/core';
+
 
 const Detail = () => {
   const token = Cookies.get("token");
@@ -31,7 +32,12 @@ const Detail = () => {
   const { data, isLoading } = useGetSingleContactQuery({ id, token });
   const favlist = useSelector((state) => state.contactSlice.favourite)
   const isFav = favlist.some((el,i,arr)=> el.id === Number(id));
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
+  const [responsiveNav,setResponsiveNav] = useState(true)
+
+  const [opened, { open, close }] = useDisclosure(false);
+
+  console.log(isFav)
 
   if (isLoading) {
     return (
@@ -40,6 +46,7 @@ const Detail = () => {
       </div>
     );
   }
+
   return (
     <div>
       {/* navbar */}
@@ -53,16 +60,19 @@ const Detail = () => {
           <h1 className=" text-2xl font-sans font-bold text-blue-400">
             Friends
           </h1>
-          <div className=" border px-4 py-1 ms-6 rounded-full hidden sm:block">
+          <div className='border px-4 py-1 ms-6 rounded-full hidden sm:block'>
             <input
               type="text"
               placeholder="Search"
-              className=" outline-none "
+              className={` outline-none `}
             />
           </div>
         </div>
         <div className="flex items-center">
-          <BiHelpCircle className=" text-gray-600 text-lg" />
+          <button>
+          <BsSearch className=' block sm:hidden text-gray-600 me-3' onClick={()=> setResponsiveNav(false)}/>
+          </button>
+          <BiHelpCircle className='text-gray-600 text-lg'/>
           <FiSettings className={` text-gray-600 text-lg mx-3`}/>
           <div className=" w-12 h-12 ms-5 rounded-full bg-blue-600"></div>
         </div>
@@ -71,18 +81,18 @@ const Detail = () => {
       <div className=" bg-white  px-10">
         <div className=" flex flex-col gap-10 w-full">
           {/* Avator */}
-          <div className=" img flex flex-col md:flex-row justify-center gap-14 items-center mt-12">
+          <div className=" img flex flex-col md:flex-row justify-center gap-12 items-center mt-12">
             <img
               src={a1}
               alt=""
-              className=" w-60 h-60 object-cover mt-12 rounded-full"
+              className=" w-48 h-48 sm:w-60 sm:h-60 object-cover mt-20 sm:mt-12 rounded-full"
             />
             <div className=" flex flex-col gap-3">
-              <p className=" font-semibold text-2xl mb-3 mt-12 text-gray-700 font-sans tracking-wide">
+              <p className=" font-semibold text-2xl mb-3 mt-0 sm:mt-20 text-gray-700 font-sans tracking-wide">
                 {data.contact.name}
               </p>
               <div>
-                <button className=" flex items-center shadow py-2 px-4 font-sans text-gray-500 font-normal border border-gray-200 rounded">
+                <button className=" flex items-center shadow py-2 px-4 font-sans text-sm text-gray-500 font-normal border border-gray-200 rounded">
                   Add Label
                   <SlPlus className=" ms-2 text-gray-700" />
                 </button>
@@ -90,20 +100,26 @@ const Detail = () => {
               <div className="flex items-center mt-10">
                 {
                   isFav ? (
-                    <button onClick={()=> dispatch(removeFavourite(data))}>
-                      <AiFillStar className='text-lg text-gray-500'/>
+                    <button onClick={()=> dispatch(removeFavourite(data.contact)) }>
+                      <AiFillStar className='text-lg text-gray-500 me-4'/>
                     </button>
                   ):(
-                    <AiOutlineStar className='text-lg text-gray-500' />
+                    <button>
+                    <AiOutlineStar className='text-lg text-gray-500 me-4' onClick={()=>dispatch(addFavourite(data.contact))}/>
+                    </button>
                   )
                 }
-                <AiOutlinePrinter className=" text-gray-600 text-lg mx-2" />
-                <TfiExport className=" text-gray-600 text-lg" />
+                <button>
+                <AiOutlinePrinter className=" text-gray-600 text-lg" onClick={()=> window.print()}/>
+                </button>
+                <button>
+                <CiExport className=" text-gray-600 text-lg mx-4" />
+                </button>
                 <Link to={`/edit/:${data.contact.id}`}>
-				<button className=" font-sans font-bold bg-slate-700 ms-2 text-white px-4 py-2 leading-4 rounded">
+				        <button className=" font-sans font-bold bg-slate-700 ms-3 text-white px-4 py-2 leading-4 rounded">
                   Edit
                 </button>
-				</Link>
+				        </Link>
               </div>
             </div>
           </div>
@@ -192,9 +208,9 @@ const Detail = () => {
 						{data.contact.updated_at}
 						</span>
 					</pre>
-					<pre className=" font-sans font-normal text-sm text-gray-700">
+					<pre className=" font-sans font-normal text-xs text-gray-700">
 						Added to Contact{" "}
-						<span className=" text-gray-500 text-sm font-sans">
+						<span className=" text-gray-500 text-xs font-sans">
 						Today,12:20 PM
 						</span>
 					</pre>
@@ -206,7 +222,7 @@ const Detail = () => {
 		  
         </div>
       </div>
-      
+
     </div>
   );
 };
