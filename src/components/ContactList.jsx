@@ -160,9 +160,9 @@ const ContactList = () => {
             <thead>
               <tr className="">
                 <th className="hidden md:table-cell">Name</th>
-                <th className="">Email</th>
-                <th className="hidden lg:table-cell">Phone Number</th>
-                <th className="hidden lg:table-cell">Address</th>
+                {/* <th className="">Email</th> */}
+                {/* <th className="hidden lg:table-cell">Phone Number</th> */}
+                {/* <th className="hidden lg:table-cell">Address</th> */}
               </tr>
             </thead>
             <tbody>
