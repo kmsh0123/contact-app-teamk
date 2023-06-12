@@ -29,6 +29,7 @@ import {  Group, Button, TextInput } from '@mantine/core';
 import SearchInput from "./SearchInput";
 import { toggleNavbar } from "../redux/service/navbarSlice";
 import { toggleDarkMode } from "../redux/service/darkModeSlice";
+import UserMenu from "./UserMenu";
 
 
 const Detail = () => {
@@ -105,7 +106,8 @@ const Detail = () => {
                         <div className="dot absolute left-1 top-1 bg-white w-6 h-6 rounded-full transition"></div>
                       </div>
                     </label>
-                <img src="https://img.freepik.com/free-icon/user_318-159711.jpg" className='w-10 h-10' alt="" />
+                {/* <img src="https://img.freepik.com/free-icon/user_318-159711.jpg" className='w-10 h-10' alt="" /> */}
+                <UserMenu/>
               </div>
         </nav>
      {/* </Nav> */}
@@ -150,6 +152,11 @@ const Detail = () => {
                 <Link to={`/edit/:${data.contact.id}`}>
 				        <button className=" font-sans font-bold bg-slate-700 ms-3 text-white px-4 py-2 leading-4 rounded">
                   Edit
+                </button>
+				        </Link>
+                <Link to={`/`}>
+				        <button className=" font-sans font-bold bg-slate-700 ms-3 text-white px-4 py-2 leading-4 rounded">
+                  Back
                 </button>
 				        </Link>
               </div>

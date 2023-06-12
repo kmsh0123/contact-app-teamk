@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from "react";
-import { Loader, Table } from "@mantine/core";
+import { Avatar, Loader, Table } from "@mantine/core";
 import {
   useDeleteContactMutation,
   useGetContactQuery,
@@ -8,7 +8,7 @@ import Cookies from "js-cookie";
 import Swal from "sweetalert2";
 import { Link, useSearchParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { addContacts } from "../redux/service/contactSlice";
+import { addContacts, addFavourite } from "../redux/service/contactSlice";
 import { Menu, Button } from "@mantine/core";
 import { RiMore2Fill } from "react-icons/ri";
 
@@ -19,9 +19,9 @@ const ContactList = () => {
   const contacts = useSelector((state) => state.contactSlice.contacts);
   const searched = useSelector((state) => state.contactSlice.searched);
   const isOpen = useSelector((state) => state.navbar.isOpen);
-  const {mode} = useSelector(state=>state.darkMode);
+  const { mode } = useSelector((state) => state.darkMode);
   const dispatch = useDispatch();
-  
+
   useEffect(() => {
     dispatch(addContacts(data?.contacts?.data));
   }, [data, dispatch]);
@@ -82,34 +82,52 @@ const ContactList = () => {
     })
     ?.map((contact) => {
       return (
-        <tr className="contact-list" key={contact?.id}>
-          <td className={`${mode ? "text-slate-900" : "text-white"} hidden md:table-cell`}>
+        <tr className="hover:bg-blue-300 contact-list" key={contact?.id}>
+          <td className="hidden md:table-cell">
+            {contact?.email === null ? (
+              <Avatar color="pink" size="md" radius="xl"></Avatar>
+            ) : (
+              <Avatar color="pink" size="md" radius="xl">
+                {" "}
+                <p className="text-lg">{contact?.name.substring(0, 1)}</p>{" "}
+              </Avatar>
+            )}
+          </td>
+          <td
+            className={`${
+              mode ? "text-slate-900" : "text-white"
+            } hidden md:table-cell`}>
             {contact?.name === null ? "exampleName" : contact?.name}
           </td>
           <td className={`${mode ? "text-slate-900" : "text-white"}`}>
             {contact?.email === null ? "example@gmail.com" : contact?.email}
           </td>
-          <td className={`${mode ? "text-slate-900" : "text-white"} hidden md:table-cell`}>
+          <td
+            className={`${
+              mode ? "text-slate-900" : "text-white"
+            } hidden md:table-cell`}>
             {contact?.phone === null ? "-" : contact?.phone}
           </td>
-          <td className={`${mode ? "text-slate-900" : "text-white"} hidden md:table-cell`}>
+          <td
+            className={`${
+              mode ? "text-slate-900" : "text-white"
+            } hidden md:table-cell`}>
             {contact?.address === null ? "-" : contact?.address}
           </td>
           <td className="del-icon">
             <div className="flex justify-end">
               <Menu width={200} shadow="md">
                 <Menu.Target>
-                  <Button variant="outline">
-                    <RiMore2Fill className="text-2xl" />
-                  </Button>
+                  <div className=" flex items-center hover:bg-white w-[30px] h-[30px] rounded-[50%]">
+                    <RiMore2Fill className="text-2xl ml-[3px] text-gray-400" />
+                  </div>
                 </Menu.Target>
 
                 <Menu.Dropdown>
                   <Menu.Item>
                     <p
                       onClick={() => deleteHandler(contact?.id)}
-                      className=" text-red-700 cursor-pointer"
-                    >
+                      className=" text-red-700 cursor-pointer">
                       Delete
                     </p>
                   </Menu.Item>
@@ -118,6 +136,13 @@ const ContactList = () => {
                     <Link to={`/detail/${contact?.id}`}>
                       <p className="">Detail</p>
                     </Link>
+                  </Menu.Item>
+                  <Menu.Item>
+                    <p
+                      onClick={() => dispatch(addFavourite(contact))}
+                      className=" text-blue-700 cursor-pointer">
+                      Favourite
+                    </p>
                   </Menu.Item>
 
                   <Menu.Item target="_blank">
@@ -142,40 +167,56 @@ const ContactList = () => {
   }
 
   return (
-      <div className="flex justify-center md:justify-start">
-        {data?.contacts?.data.length === 0 ? (
-          <div className="flex justify-center flex-col gap-3 items-center h-screen w-[80%] mx-auto">
-            <h1 className="text-3xl font-semibold text-blue-700">
-              Hello Dear!
-            </h1>
-            <iframe src="https://embed.lottiefiles.com/animation/67375"></iframe>
-            <div className="text-gray-500 text-sm text-center">
-              <h1 className="">There are no contacts to display</h1>
-              <p className="">Please check back later for updates</p>
-            </div>
+    <div className="flex justify-center md:justify-start">
+      {data?.contacts?.data.length === 0 ? (
+        <div className="flex justify-center flex-col gap-3 items-center h-screen w-[80%] mx-auto">
+          <h1 className="text-3xl font-semibold text-blue-700">Hello Dear!</h1>
+          <iframe src="https://embed.lottiefiles.com/animation/67375"></iframe>
+          <div className="text-gray-500 text-sm text-center">
+            <h1 className="">There are no contacts to display</h1>
+            <p className="">Please check back later for updates</p>
           </div>
-        ) : (
-          <div
-            className={`lg:w-[70%] w-screen absolute ${isOpen ? "lg:left-[305px]" : "lg:left-0"} ${
-              isOpen ? "lg:px-0" : "lg:px-3"
-            } duration-500 transition-all ${isOpen ? "lg:w-[70%]" : "lg:w-full"}`}
-          >
-            <div className="flex justify-start pt-0 md:pt-10">
-              <Table className="relative top-24 lg:top-12 md:top-16">
-                <thead className="">
-                  <tr className="">
-                    <th className={`${ mode ? "color-slate" : "color-white !important"} hidden md:table-cell`}>Name</th>
-                    <th className={`${ mode ? "color-slate" : "color-white"}`}>Email</th>
-                    <th className={`${ mode ? "color-slate" : "color-white"} hidden md:table-cell`}>Phone Number</th>
-                    <th className={`${ mode ? "color-slate" : "color-white"} hidden md:table-cell`}>Address</th>
-                  </tr>
-                </thead>
-                <tbody className="">{rows}</tbody>
-              </Table>
-            </div>
+        </div>
+      ) : (
+        <div
+          className={`lg:w-[70%] w-screen absolute ${
+            isOpen ? "lg:left-[305px]" : "lg:left-0"
+          } ${isOpen ? "lg:px-0" : "lg:px-3"} duration-500 transition-all ${
+            isOpen ? "lg:w-[70%]" : "lg:w-full"
+          }`}>
+          <div className="flex justify-start pt-0 md:pt-10">
+            <Table className="relative top-24 lg:top-12 md:top-16">
+              <thead className="">
+                <tr className="">
+                  <th
+                    className={`${
+                      mode ? "color-slate" : "color-white !important"
+                    } hidden md:table-cell`}>
+                    Name
+                  </th>
+                  <th className={`${mode ? "color-slate" : "color-white"}`}>
+                    Email
+                  </th>
+                  <th
+                    className={`${
+                      mode ? "color-slate" : "color-white"
+                    } hidden md:table-cell`}>
+                    Phone Number
+                  </th>
+                  <th
+                    className={`${
+                      mode ? "color-slate" : "color-white"
+                    } hidden md:table-cell`}>
+                    Address
+                  </th>
+                </tr>
+              </thead>
+              <tbody className="">{rows}</tbody>
+            </Table>
           </div>
-        )}
-      </div>
+        </div>
+      )}
+    </div>
   );
 };
 

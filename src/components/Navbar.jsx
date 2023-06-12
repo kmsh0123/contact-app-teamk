@@ -78,7 +78,8 @@ const Navbar = () => {
                         <div className="dot absolute left-1 top-1 bg-white w-6 h-6 rounded-full transition"></div>
                       </div>
                     </label>
-                <img src="https://img.freepik.com/free-icon/user_318-159711.jpg" className='w-10 h-10' alt="" />
+                {/* <img src="https://img.freepik.com/free-icon/user_318-159711.jpg" className='w-10 h-10' alt="" /> */}
+				<UserMenu/>
               </div>
         </nav>
 			

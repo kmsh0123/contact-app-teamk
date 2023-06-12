@@ -18,8 +18,8 @@ const Login = () => {
   const form = useForm({
     validate: zodResolver(LoginSchema),
     initialValues: {
-      email: "admin@gmail.com",
-      password: "admin123",
+      email: "",
+      password: "",
     },
   });
 

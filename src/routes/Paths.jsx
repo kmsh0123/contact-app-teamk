@@ -7,6 +7,7 @@ import CreateContact from "../components/CreateContact";
 import Detail from "../components/Detail";
 import Edit from "../components/Edit";
 import Favourite from "../components/Favourite";
+import UserProile from "../pages/UserProile";
 
 
 const Paths = () => {
@@ -22,7 +23,7 @@ const Paths = () => {
 						</Routeguard>
 					}
 				/>
-				<Route path={"/register"} element={<Register />} />
+				<Route path={"/userProfile"} element={<UserProile />} />
 				<Route path={"/login"} element={<Login />} />
 				<Route path={"/create"} element={<CreateContact />} />
 				<Route path={"/detail/:id"} element={<Detail />} />

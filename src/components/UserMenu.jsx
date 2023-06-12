@@ -20,7 +20,7 @@ const UserMenu = () => {
     const { data } = await getLogOut(token);
     dispatch(removeUser());
     if (data?.success) {
-      nav("/formPage");
+      nav("/login");
     }
     // console.log(data);
   };
