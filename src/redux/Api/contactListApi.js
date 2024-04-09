@@ -2,7 +2,7 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 
 export const contactListApi = createApi({
     reducerPath: 'contactListApi',
-    baseQuery: fetchBaseQuery({ baseUrl: `https://contact-app.mmsdev.site/api/v1` }),
+    baseQuery: fetchBaseQuery({ baseUrl: `https://contact.sankyitar.store/api/v1/` }),
     tagTypes: ['contactList'],
     endpoints: (builder) => ({
         getContact: builder.query({
